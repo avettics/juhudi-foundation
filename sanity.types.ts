@@ -695,3 +695,826 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint;
+
+// Source: sanity/queries/campaigns.ts
+// Variable: CAMPAIGNS_QUERY
+// Query: *[_type == "campaign"] | order(startDate desc, title asc) {    _id,    title,    "slug": slug.current,    shortDescription,    status,    startDate,    endDate,    goalAmount,    currency,    programme-> {      _id,      title,      "slug": slug.current    },    project-> {      _id,      title,      "slug": slug.current    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured  }
+export type CAMPAIGNS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  status: "active" | "cancelled" | "completed" | "paused" | "upcoming";
+  startDate: string | null;
+  endDate: string | null;
+  goalAmount: number;
+  currency: "TZS" | "USD";
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+  };
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+}>;
+
+// Source: sanity/queries/campaigns.ts
+// Variable: CAMPAIGN_BY_SLUG_QUERY
+// Query: *[_type == "campaign" && slug.current == $slug][0] {    _id,    title,    "slug": slug.current,    shortDescription,    content,    status,    startDate,    endDate,    goalAmount,    currency,    programme-> {      _id,      title,      "slug": slug.current,      shortDescription    },    project-> {      _id,      title,      "slug": slug.current,      shortDescription,      status    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured,    seo {      metaTitle,      metaDescription,      socialImage {        asset,        alt      },      noIndex    }  }
+export type CAMPAIGN_BY_SLUG_QUERY_RESULT = {
+  _id: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  content: BlockContent;
+  status: "active" | "cancelled" | "completed" | "paused" | "upcoming";
+  startDate: string | null;
+  endDate: string | null;
+  goalAmount: number;
+  currency: "TZS" | "USD";
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+    shortDescription: string;
+  };
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+    shortDescription: string;
+    status: "active" | "cancelled" | "completed" | "onHold" | "planned";
+  } | null;
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/contact-information.ts
+// Variable: CONTACT_INFORMATION_QUERY
+// Query: *[_type == "contactInformation" && _id == "contactInformation"][0] {    _id,    primaryEmail,    secondaryEmail,    primaryPhone,    secondaryPhone,    whatsappNumber,    addressLine,    district,    city,    country,    postalAddress,    mapUrl,    officeHours[] {      days,      hours    }  }
+export type CONTACT_INFORMATION_QUERY_RESULT = {
+  _id: "contactInformation";
+  primaryEmail: string;
+  secondaryEmail: string | null;
+  primaryPhone: string;
+  secondaryPhone: string | null;
+  whatsappNumber: string | null;
+  addressLine: string | null;
+  district: string | null;
+  city: string;
+  country: string;
+  postalAddress: string | null;
+  mapUrl: string | null;
+  officeHours: Array<{
+    days: string;
+    hours: string;
+  }> | null;
+} | null;
+
+// Source: sanity/queries/events.ts
+// Variable: EVENTS_QUERY
+// Query: *[_type == "event"] | order(startAt asc, title asc) {    _id,    title,    "slug": slug.current,    shortDescription,    startAt,    endAt,    format,    venue,    location,    programme-> {      _id,      title,      "slug": slug.current    },    project-> {      _id,      title,      "slug": slug.current    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured  }
+export type EVENTS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  startAt: string;
+  endAt: string | null;
+  format: "hybrid" | "inPerson" | "online";
+  venue: string | null;
+  location: string | null;
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+}>;
+
+// Source: sanity/queries/events.ts
+// Variable: EVENT_BY_SLUG_QUERY
+// Query: *[_type == "event" && slug.current == $slug][0] {    _id,    title,    "slug": slug.current,    shortDescription,    content,    startAt,    endAt,    format,    venue,    location,    onlineUrl,    programme-> {      _id,      title,      "slug": slug.current,      shortDescription    },    project-> {      _id,      title,      "slug": slug.current,      shortDescription,      status    },    participationLink {      label,      linkType,      internalLink-> {        _type,        "slug": slug.current      },      url,      openInNewTab    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured,    seo {      metaTitle,      metaDescription,      socialImage {        asset,        alt      },      noIndex    }  }
+export type EVENT_BY_SLUG_QUERY_RESULT = {
+  _id: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  content: BlockContent;
+  startAt: string;
+  endAt: string | null;
+  format: "hybrid" | "inPerson" | "online";
+  venue: string | null;
+  location: string | null;
+  onlineUrl: string | null;
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+    shortDescription: string;
+  } | null;
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+    shortDescription: string;
+    status: "active" | "cancelled" | "completed" | "onHold" | "planned";
+  } | null;
+  participationLink: {
+    label: string;
+    linkType: "external" | "internal";
+    internalLink:
+      | {
+          _type: "campaign";
+          slug: string;
+        }
+      | {
+          _type: "event";
+          slug: string;
+        }
+      | {
+          _type: "opportunity";
+          slug: string;
+        }
+      | {
+          _type: "programme";
+          slug: string;
+        }
+      | {
+          _type: "project";
+          slug: string;
+        }
+      | {
+          _type: "story";
+          slug: string;
+        }
+      | null;
+    url: string | null;
+    openInNewTab: boolean | null;
+  } | null;
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/faqs.ts
+// Variable: FAQS_QUERY
+// Query: *[_type == "faq"] | order(category asc, order asc, question asc) {    _id,    question,    answer,    category,    featured,    order  }
+export type FAQS_QUERY_RESULT = Array<{
+  _id: string;
+  question: string;
+  answer: string;
+  category:
+    | "contributions"
+    | "general"
+    | "opportunities"
+    | "other"
+    | "partnerships"
+    | "programmes";
+  featured: boolean | null;
+  order: number;
+}>;
+
+// Source: sanity/queries/impact-metrics.ts
+// Variable: IMPACT_METRICS_QUERY
+// Query: *[_type == "impactMetric"] | order(order asc, title asc) {    _id,    title,    value,    prefix,    suffix,    description,    asOfDate,    programme-> {      _id,      title,      "slug": slug.current    },    project-> {      _id,      title,      "slug": slug.current,      status    },    featured,    order  }
+export type IMPACT_METRICS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  value: number;
+  prefix: string | null;
+  suffix: string | null;
+  description: string | null;
+  asOfDate: string;
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+    status: "active" | "cancelled" | "completed" | "onHold" | "planned";
+  } | null;
+  featured: boolean | null;
+  order: number;
+}>;
+
+// Source: sanity/queries/opportunities.ts
+// Variable: OPPORTUNITIES_QUERY
+// Query: *[_type == "opportunity"] | order(deadline asc, title asc) {    _id,    title,    "slug": slug.current,    opportunityType,    shortDescription,    mode,    location,    deadline,    programme-> {      _id,      title,      "slug": slug.current    },    project-> {      _id,      title,      "slug": slug.current    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured  }
+export type OPPORTUNITIES_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  opportunityType:
+    | "employment"
+    | "internship"
+    | "other"
+    | "partnership"
+    | "programmeApplication"
+    | "volunteer";
+  shortDescription: string;
+  mode: "hybrid" | "onSite" | "remote";
+  location: string | null;
+  deadline: string | null;
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  } | null;
+  featured: boolean | null;
+}>;
+
+// Source: sanity/queries/opportunities.ts
+// Variable: OPPORTUNITY_BY_SLUG_QUERY
+// Query: *[_type == "opportunity" && slug.current == $slug][0] {    _id,    title,    "slug": slug.current,    opportunityType,    shortDescription,    content,    mode,    location,    deadline,    programme-> {      _id,      title,      "slug": slug.current,      shortDescription    },    project-> {      _id,      title,      "slug": slug.current,      shortDescription,      status    },    applicationLink {      label,      linkType,      internalLink-> {        _type,        "slug": slug.current      },      url,      openInNewTab    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured,    seo {      metaTitle,      metaDescription,      socialImage {        asset,        alt      },      noIndex    }  }
+export type OPPORTUNITY_BY_SLUG_QUERY_RESULT = {
+  _id: string;
+  title: string;
+  slug: string;
+  opportunityType:
+    | "employment"
+    | "internship"
+    | "other"
+    | "partnership"
+    | "programmeApplication"
+    | "volunteer";
+  shortDescription: string;
+  content: BlockContent;
+  mode: "hybrid" | "onSite" | "remote";
+  location: string | null;
+  deadline: string | null;
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+    shortDescription: string;
+  } | null;
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+    shortDescription: string;
+    status: "active" | "cancelled" | "completed" | "onHold" | "planned";
+  } | null;
+  applicationLink: {
+    label: string;
+    linkType: "external" | "internal";
+    internalLink:
+      | {
+          _type: "campaign";
+          slug: string;
+        }
+      | {
+          _type: "event";
+          slug: string;
+        }
+      | {
+          _type: "opportunity";
+          slug: string;
+        }
+      | {
+          _type: "programme";
+          slug: string;
+        }
+      | {
+          _type: "project";
+          slug: string;
+        }
+      | {
+          _type: "story";
+          slug: string;
+        }
+      | null;
+    url: string | null;
+    openInNewTab: boolean | null;
+  } | null;
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  } | null;
+  featured: boolean | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/partners.ts
+// Variable: PARTNERS_QUERY
+// Query: *[_type == "partner"] | order(order asc, name asc) {    _id,    name,    partnerType,    description,    websiteUrl,    programmes[]-> {      _id,      title,      "slug": slug.current    },    projects[]-> {      _id,      title,      "slug": slug.current,      status    },    logo {      asset,      alt,      hotspot,      crop    },    featured,    order  }
+export type PARTNERS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  partnerType:
+    | "funding"
+    | "implementation"
+    | "institutional"
+    | "other"
+    | "strategic"
+    | "supporting";
+  description: string | null;
+  websiteUrl: string | null;
+  programmes: Array<{
+    _id: string;
+    title: string;
+    slug: string;
+  }> | null;
+  projects: Array<{
+    _id: string;
+    title: string;
+    slug: string;
+    status: "active" | "cancelled" | "completed" | "onHold" | "planned";
+  }> | null;
+  logo: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+  order: number;
+}>;
+
+// Source: sanity/queries/programmes.ts
+// Variable: PROGRAMMES_QUERY
+// Query: *[_type == "programme"] | order(order asc, title asc) {    _id,    title,    "slug": slug.current,    shortDescription,    focusAreas,    featuredImage {      asset,      alt,      hotspot,      crop    },    featured,    order  }
+export type PROGRAMMES_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  focusAreas: Array<string> | null;
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+  order: number;
+}>;
+
+// Source: sanity/queries/programmes.ts
+// Variable: PROGRAMME_BY_SLUG_QUERY
+// Query: *[_type == "programme" && slug.current == $slug][0] {    _id,    title,    "slug": slug.current,    shortDescription,    content,    focusAreas,    featuredImage {      asset,      alt,      hotspot,      crop    },    featured,    order,    seo {      metaTitle,      metaDescription,      socialImage {        asset,        alt      },      noIndex    }  }
+export type PROGRAMME_BY_SLUG_QUERY_RESULT = {
+  _id: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  content: BlockContent;
+  focusAreas: Array<string> | null;
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+  order: number;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/projects.ts
+// Variable: PROJECTS_QUERY
+// Query: *[_type == "project"] | order(startDate desc, title asc) {    _id,    title,    "slug": slug.current,    shortDescription,    status,    startDate,    endDate,    location,    programme-> {      _id,      title,      "slug": slug.current    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured  }
+export type PROJECTS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  status: "active" | "cancelled" | "completed" | "onHold" | "planned";
+  startDate: string | null;
+  endDate: string | null;
+  location: string | null;
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+  };
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+}>;
+
+// Source: sanity/queries/projects.ts
+// Variable: PROJECT_BY_SLUG_QUERY
+// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    title,    "slug": slug.current,    shortDescription,    content,    status,    startDate,    endDate,    location,    programme-> {      _id,      title,      "slug": slug.current,      shortDescription    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured,    seo {      metaTitle,      metaDescription,      socialImage {        asset,        alt      },      noIndex    }  }
+export type PROJECT_BY_SLUG_QUERY_RESULT = {
+  _id: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  content: BlockContent;
+  status: "active" | "cancelled" | "completed" | "onHold" | "planned";
+  startDate: string | null;
+  endDate: string | null;
+  location: string | null;
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+    shortDescription: string;
+  };
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/reports.ts
+// Variable: REPORTS_QUERY
+// Query: *[_type == "report"] | order(publicationDate desc, title asc) {    _id,    title,    reportType,    description,    publicationDate,    reportingPeriod,    file {      asset-> {        _id,        url,        originalFilename,        mimeType,        size      }    },    programme-> {      _id,      title,      "slug": slug.current    },    project-> {      _id,      title,      "slug": slug.current,      status    },    coverImage {      asset,      alt,      hotspot,      crop    },    featured,    order  }
+export type REPORTS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  reportType:
+    | "annual"
+    | "financial"
+    | "impact"
+    | "other"
+    | "programme"
+    | "project"
+    | "research";
+  description: string;
+  publicationDate: string;
+  reportingPeriod: string | null;
+  file: {
+    asset: {
+      _id: string;
+      url: string;
+      originalFilename: string | null;
+      mimeType: string;
+      size: number;
+    } | null;
+  };
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+    status: "active" | "cancelled" | "completed" | "onHold" | "planned";
+  } | null;
+  coverImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  } | null;
+  featured: boolean | null;
+  order: number | null;
+}>;
+
+// Source: sanity/queries/site-settings.ts
+// Variable: SITE_SETTINGS_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0] {    _id,    siteTitle,    tagline,    siteDescription,    contributionCta {      label,      linkType,      internalLink-> {        _type,        "slug": slug.current      },      url,      openInNewTab    },    getInvolvedCta {      label,      linkType,      internalLink-> {        _type,        "slug": slug.current      },      url,      openInNewTab    },    socialLinks[] {      platform,      url    },    footerDescription,    copyrightText,    seo {      metaTitle,      metaDescription,      socialImage {        asset,        alt      },      noIndex    }  }
+export type SITE_SETTINGS_QUERY_RESULT = {
+  _id: "siteSettings";
+  siteTitle: string;
+  tagline: string;
+  siteDescription: string;
+  contributionCta: {
+    label: string;
+    linkType: "external" | "internal";
+    internalLink:
+      | {
+          _type: "campaign";
+          slug: string;
+        }
+      | {
+          _type: "event";
+          slug: string;
+        }
+      | {
+          _type: "opportunity";
+          slug: string;
+        }
+      | {
+          _type: "programme";
+          slug: string;
+        }
+      | {
+          _type: "project";
+          slug: string;
+        }
+      | {
+          _type: "story";
+          slug: string;
+        }
+      | null;
+    url: string | null;
+    openInNewTab: boolean | null;
+  } | null;
+  getInvolvedCta: {
+    label: string;
+    linkType: "external" | "internal";
+    internalLink:
+      | {
+          _type: "campaign";
+          slug: string;
+        }
+      | {
+          _type: "event";
+          slug: string;
+        }
+      | {
+          _type: "opportunity";
+          slug: string;
+        }
+      | {
+          _type: "programme";
+          slug: string;
+        }
+      | {
+          _type: "project";
+          slug: string;
+        }
+      | {
+          _type: "story";
+          slug: string;
+        }
+      | null;
+    url: string | null;
+    openInNewTab: boolean | null;
+  } | null;
+  socialLinks: Array<{
+    platform:
+      | "facebook"
+      | "instagram"
+      | "linkedin"
+      | "tiktok"
+      | "whatsapp"
+      | "x"
+      | "youtube";
+    url: string;
+  }> | null;
+  footerDescription: string | null;
+  copyrightText: string | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/stories.ts
+// Variable: STORIES_QUERY
+// Query: *[_type == "story"] | order(publishedAt desc, title asc) {    _id,    title,    "slug": slug.current,    storyType,    excerpt,    publishedAt,    programme-> {      _id,      title,      "slug": slug.current    },    project-> {      _id,      title,      "slug": slug.current    },    campaign-> {      _id,      title,      "slug": slug.current    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured  }
+export type STORIES_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  storyType: "impact" | "news" | "update";
+  excerpt: string;
+  publishedAt: string;
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  campaign: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+}>;
+
+// Source: sanity/queries/stories.ts
+// Variable: STORY_BY_SLUG_QUERY
+// Query: *[_type == "story" && slug.current == $slug][0] {    _id,    title,    "slug": slug.current,    storyType,    excerpt,    content,    publishedAt,    programme-> {      _id,      title,      "slug": slug.current,      shortDescription    },    project-> {      _id,      title,      "slug": slug.current,      shortDescription,      status    },    campaign-> {      _id,      title,      "slug": slug.current,      shortDescription,      status    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured,    seo {      metaTitle,      metaDescription,      socialImage {        asset,        alt      },      noIndex    }  }
+export type STORY_BY_SLUG_QUERY_RESULT = {
+  _id: string;
+  title: string;
+  slug: string;
+  storyType: "impact" | "news" | "update";
+  excerpt: string;
+  content: BlockContent;
+  publishedAt: string;
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+    shortDescription: string;
+  } | null;
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+    shortDescription: string;
+    status: "active" | "cancelled" | "completed" | "onHold" | "planned";
+  } | null;
+  campaign: {
+    _id: string;
+    title: string;
+    slug: string;
+    shortDescription: string;
+    status: "active" | "cancelled" | "completed" | "paused" | "upcoming";
+  } | null;
+  featuredImage: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  featured: boolean | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/team-members.ts
+// Variable: TEAM_MEMBERS_QUERY
+// Query: *[_type == "teamMember"] | order(group asc, order asc, name asc) {    _id,    name,    role,    group,    bio,    photo {      asset,      alt,      hotspot,      crop    },    linkedinUrl,    order  }
+export type TEAM_MEMBERS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  role: string;
+  group: "advisory" | "board" | "leadership" | "team";
+  bio: string | null;
+  photo: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+  linkedinUrl: string | null;
+  order: number;
+}>;
+
+// Source: sanity/queries/testimonials.ts
+// Variable: TESTIMONIALS_QUERY
+// Query: *[_type == "testimonial"] | order(order asc, name asc) {    _id,    quote,    name,    testimonialType,    role,    organisation,    programme-> {      _id,      title,      "slug": slug.current    },    project-> {      _id,      title,      "slug": slug.current,      status    },    photo {      asset,      alt,      hotspot,      crop    },    featured,    order  }
+export type TESTIMONIALS_QUERY_RESULT = Array<{
+  _id: string;
+  quote: string;
+  name: string;
+  testimonialType:
+    "community" | "other" | "participant" | "partner" | "volunteer";
+  role: string | null;
+  organisation: string | null;
+  programme: {
+    _id: string;
+    title: string;
+    slug: string;
+  } | null;
+  project: {
+    _id: string;
+    title: string;
+    slug: string;
+    status: "active" | "cancelled" | "completed" | "onHold" | "planned";
+  } | null;
+  photo: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  } | null;
+  featured: boolean | null;
+  order: number;
+}>;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    '\n  *[_type == "campaign"] | order(startDate desc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    status,\n    startDate,\n    endDate,\n    goalAmount,\n    currency,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': CAMPAIGNS_QUERY_RESULT;
+    '\n  *[_type == "campaign" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    content,\n    status,\n    startDate,\n    endDate,\n    goalAmount,\n    currency,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription,\n      status\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        alt\n      },\n      noIndex\n    }\n  }\n': CAMPAIGN_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "contactInformation" && _id == "contactInformation"][0] {\n    _id,\n    primaryEmail,\n    secondaryEmail,\n    primaryPhone,\n    secondaryPhone,\n    whatsappNumber,\n\n    addressLine,\n    district,\n    city,\n    country,\n    postalAddress,\n    mapUrl,\n\n    officeHours[] {\n      days,\n      hours\n    }\n  }\n': CONTACT_INFORMATION_QUERY_RESULT;
+    '\n  *[_type == "event"] | order(startAt asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    startAt,\n    endAt,\n    format,\n    venue,\n    location,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': EVENTS_QUERY_RESULT;
+    '\n  *[_type == "event" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    content,\n    startAt,\n    endAt,\n    format,\n    venue,\n    location,\n    onlineUrl,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription,\n      status\n    },\n\n    participationLink {\n      label,\n      linkType,\n      internalLink-> {\n        _type,\n        "slug": slug.current\n      },\n      url,\n      openInNewTab\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        alt\n      },\n      noIndex\n    }\n  }\n': EVENT_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "faq"] | order(category asc, order asc, question asc) {\n    _id,\n    question,\n    answer,\n    category,\n    featured,\n    order\n  }\n': FAQS_QUERY_RESULT;
+    '\n  *[_type == "impactMetric"] | order(order asc, title asc) {\n    _id,\n    title,\n    value,\n    prefix,\n    suffix,\n    description,\n    asOfDate,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      status\n    },\n\n    featured,\n    order\n  }\n': IMPACT_METRICS_QUERY_RESULT;
+    '\n  *[_type == "opportunity"] | order(deadline asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    opportunityType,\n    shortDescription,\n    mode,\n    location,\n    deadline,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': OPPORTUNITIES_QUERY_RESULT;
+    '\n  *[_type == "opportunity" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    opportunityType,\n    shortDescription,\n    content,\n    mode,\n    location,\n    deadline,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription,\n      status\n    },\n\n    applicationLink {\n      label,\n      linkType,\n      internalLink-> {\n        _type,\n        "slug": slug.current\n      },\n      url,\n      openInNewTab\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        alt\n      },\n      noIndex\n    }\n  }\n': OPPORTUNITY_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "partner"] | order(order asc, name asc) {\n    _id,\n    name,\n    partnerType,\n    description,\n    websiteUrl,\n\n    programmes[]-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    projects[]-> {\n      _id,\n      title,\n      "slug": slug.current,\n      status\n    },\n\n    logo {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order\n  }\n': PARTNERS_QUERY_RESULT;
+    '\n  *[_type == "programme"] | order(order asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    focusAreas,\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n    featured,\n    order\n  }\n': PROGRAMMES_QUERY_RESULT;
+    '\n  *[_type == "programme" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    content,\n    focusAreas,\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        alt\n      },\n      noIndex\n    }\n  }\n': PROGRAMME_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "project"] | order(startDate desc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    status,\n    startDate,\n    endDate,\n    location,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': PROJECTS_QUERY_RESULT;
+    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    content,\n    status,\n    startDate,\n    endDate,\n    location,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        alt\n      },\n      noIndex\n    }\n  }\n': PROJECT_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "report"] | order(publicationDate desc, title asc) {\n    _id,\n    title,\n    reportType,\n    description,\n    publicationDate,\n    reportingPeriod,\n\n    file {\n      asset-> {\n        _id,\n        url,\n        originalFilename,\n        mimeType,\n        size\n      }\n    },\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      status\n    },\n\n    coverImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order\n  }\n': REPORTS_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0] {\n    _id,\n    siteTitle,\n    tagline,\n    siteDescription,\n\n    contributionCta {\n      label,\n      linkType,\n      internalLink-> {\n        _type,\n        "slug": slug.current\n      },\n      url,\n      openInNewTab\n    },\n\n    getInvolvedCta {\n      label,\n      linkType,\n      internalLink-> {\n        _type,\n        "slug": slug.current\n      },\n      url,\n      openInNewTab\n    },\n\n    socialLinks[] {\n      platform,\n      url\n    },\n\n    footerDescription,\n    copyrightText,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        alt\n      },\n      noIndex\n    }\n  }\n': SITE_SETTINGS_QUERY_RESULT;
+    '\n  *[_type == "story"] | order(publishedAt desc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    storyType,\n    excerpt,\n    publishedAt,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    campaign-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': STORIES_QUERY_RESULT;
+    '\n  *[_type == "story" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    storyType,\n    excerpt,\n    content,\n    publishedAt,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription,\n      status\n    },\n\n    campaign-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription,\n      status\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        alt\n      },\n      noIndex\n    }\n  }\n': STORY_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "teamMember"] | order(group asc, order asc, name asc) {\n    _id,\n    name,\n    role,\n    group,\n    bio,\n\n    photo {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    linkedinUrl,\n    order\n  }\n': TEAM_MEMBERS_QUERY_RESULT;
+    '\n  *[_type == "testimonial"] | order(order asc, name asc) {\n    _id,\n    quote,\n    name,\n    testimonialType,\n    role,\n    organisation,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      status\n    },\n\n    photo {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order\n  }\n': TESTIMONIALS_QUERY_RESULT;
+  }
+}
