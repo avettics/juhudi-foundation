@@ -41,7 +41,31 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(`
     title,
     "slug": slug.current,
     shortDescription,
-    content,
+
+    content[] {
+      ...,
+
+      markDefs[] {
+        ...,
+
+        _type == "internalLink" => {
+          ...,
+          reference-> {
+            _type,
+            "slug": slug.current
+          }
+        }
+      },
+
+      _type == "image" => {
+        asset,
+        alt,
+        caption,
+        hotspot,
+        crop
+      }
+    },
+
     status,
     startDate,
     endDate,
