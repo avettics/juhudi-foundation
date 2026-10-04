@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Sans, Geist_Mono, Manrope } from "next/font/google";
 
+import { SanityLive } from "@/sanity/lib/live";
+
 import "./globals.css";
 
 const manrope = Manrope({
@@ -40,7 +42,10 @@ export default function RootLayout({
       lang="en"
       className={`${manrope.variable} ${dmSans.variable} ${geistMono.variable}`}
     >
-      <body className="flex min-h-screen flex-col antialiased">{children}</body>
+      <body className="flex min-h-screen flex-col antialiased">
+        {children}
+        <SanityLive />
+      </body>
     </html>
   );
 }

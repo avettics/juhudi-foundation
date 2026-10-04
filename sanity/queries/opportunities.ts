@@ -48,7 +48,31 @@ export const OPPORTUNITY_BY_SLUG_QUERY = defineQuery(`
     "slug": slug.current,
     opportunityType,
     shortDescription,
-    content,
+
+    content[] {
+      ...,
+
+      markDefs[] {
+        ...,
+
+        _type == "internalLink" => {
+          ...,
+          reference-> {
+            _type,
+            "slug": slug.current
+          }
+        }
+      },
+
+      _type == "image" => {
+        asset,
+        alt,
+        caption,
+        hotspot,
+        crop
+      }
+    },
+
     mode,
     location,
     deadline,
