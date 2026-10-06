@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Sans, Geist_Mono, Manrope } from "next/font/google";
 
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 import { SanityLive } from "@/sanity/lib/live";
 
 import "./globals.css";
@@ -43,7 +45,12 @@ export default function RootLayout({
       className={`${manrope.variable} ${dmSans.variable} ${geistMono.variable}`}
     >
       <body className="flex min-h-screen flex-col antialiased">
-        {children}
+        <SiteHeader />
+
+        <main className="flex-1">{children}</main>
+
+        <SiteFooter />
+
         <SanityLive />
       </body>
     </html>
