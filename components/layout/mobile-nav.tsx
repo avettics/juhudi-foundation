@@ -1,7 +1,7 @@
 "use client";
 
-import { MenuIcon } from "lucide-react";
 import Link from "next/link";
+import { MenuIcon } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -20,12 +20,12 @@ export function MobileNav() {
   return (
     <Sheet>
       <SheetTrigger
-        className="group inline-flex h-9 items-center gap-1.5 rounded-md border border-border bg-background px-2.5 text-sm font-medium text-foreground transition-colors hover:border-primary/30 hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 xl:hidden"
         aria-label="Open navigation menu"
+        className="group inline-flex min-h-10 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground transition-colors hover:border-primary/30 hover:text-primary focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 xl:hidden"
       >
         <MenuIcon
-          className="size-4 transition-transform duration-200 group-hover:scale-105"
           aria-hidden="true"
+          className="size-4 transition-transform duration-200 group-hover:scale-105"
         />
         <span>Menu</span>
       </SheetTrigger>
@@ -42,9 +42,9 @@ export function MobileNav() {
 
         <nav
           aria-label="Mobile navigation"
-          className="flex flex-1 flex-col px-3 pb-4 pt-14 sm:px-4"
+          className="flex flex-1 flex-col px-4 pb-5 pt-14"
         >
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col">
             {mainNavigation.map((item) => (
               <SheetClose
                 key={item.href}
@@ -52,7 +52,7 @@ export function MobileNav() {
                 render={
                   <Link
                     href={item.href}
-                    className="flex min-h-11 items-center rounded-lg px-3 py-2.5 text-base font-medium text-foreground transition-colors hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+                    className="flex min-h-12 items-center border-b border-border/70 px-1 py-3 text-base font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
                   />
                 }
               >
@@ -61,7 +61,7 @@ export function MobileNav() {
             ))}
           </div>
 
-          <div className="mt-5 border-t pt-5">
+          <div className="mt-6">
             <SheetClose
               nativeButton={false}
               render={
@@ -69,7 +69,7 @@ export function MobileNav() {
                   href="/contribute"
                   className={cn(
                     buttonVariants({ size: "lg" }),
-                    "min-h-11 w-full",
+                    "min-h-12 w-full font-semibold",
                   )}
                 />
               }

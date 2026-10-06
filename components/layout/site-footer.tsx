@@ -27,7 +27,7 @@ const footerLinkClassName =
   "rounded-sm text-sm leading-6 text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60";
 
 const contactLinkClassName =
-  "min-w-0 rounded-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60";
+  "min-w-0 rounded-sm text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60";
 
 export async function SiteFooter() {
   const [{ data: settings }, { data: contact }] = await Promise.all([
@@ -54,7 +54,7 @@ export async function SiteFooter() {
   return (
     <footer className="bg-black text-white">
       <Container>
-        <div className="grid gap-x-8 gap-y-10 py-12 sm:py-14 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.25fr] lg:py-16">
+        <div className="grid gap-x-8 gap-y-10 py-12 sm:py-14 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.25fr] lg:gap-x-10 lg:py-16">
           <div className="max-w-sm">
             <Link
               href="/"
@@ -77,7 +77,7 @@ export async function SiteFooter() {
             ) : null}
 
             {settings?.tagline ? (
-              <p className="mt-4 text-sm font-semibold text-white">
+              <p className="mt-4 text-sm font-semibold tracking-wide text-white">
                 {settings.tagline}
               </p>
             ) : null}
@@ -102,14 +102,13 @@ export async function SiteFooter() {
           <div>
             <FooterHeading>Contact</FooterHeading>
 
-            <div className="mt-4 flex flex-col gap-3 text-sm leading-6 text-white/70">
+            <div className="mt-5 flex flex-col gap-3.5 text-sm leading-6 text-white/70">
               {location ? (
                 <div className="flex items-start gap-2.5">
                   <MapPinIcon
-                    className="mt-1 size-4 shrink-0 text-white/60"
                     aria-hidden="true"
+                    className="mt-1 size-4 shrink-0 text-white/50"
                   />
-
                   <p className="max-w-xs text-pretty">{location}</p>
                 </div>
               ) : null}
@@ -117,10 +116,9 @@ export async function SiteFooter() {
               {contact?.primaryEmail ? (
                 <div className="flex min-w-0 items-start gap-2.5">
                   <MailIcon
-                    className="mt-1 size-4 shrink-0 text-white/60"
                     aria-hidden="true"
+                    className="mt-1 size-4 shrink-0 text-white/50"
                   />
-
                   <a
                     href={`mailto:${contact.primaryEmail}`}
                     className={`${contactLinkClassName} wrap-break-word`}
@@ -133,10 +131,9 @@ export async function SiteFooter() {
               {contact?.primaryPhone ? (
                 <div className="flex min-w-0 items-start gap-2.5">
                   <PhoneIcon
-                    className="mt-1 size-4 shrink-0 text-white/60"
                     aria-hidden="true"
+                    className="mt-1 size-4 shrink-0 text-white/50"
                   />
-
                   <a
                     href={`tel:${toTelephoneHref(contact.primaryPhone)}`}
                     className={contactLinkClassName}
@@ -150,7 +147,7 @@ export async function SiteFooter() {
             {settings?.socialLinks?.length ? (
               <nav
                 aria-label="Social media"
-                className="mt-5 flex flex-wrap gap-x-4 gap-y-2"
+                className="mt-6 flex flex-wrap gap-x-4 gap-y-2"
               >
                 {settings.socialLinks.map((social) => {
                   if (!social?.platform || !social.url) {
@@ -173,6 +170,7 @@ export async function SiteFooter() {
             ) : null}
           </div>
         </div>
+
         <div className="border-t border-white/15 py-5">
           <div className="flex flex-col items-center gap-1 text-center text-xs leading-5 text-white/60 sm:flex-row sm:justify-between sm:gap-6 sm:text-left sm:text-sm">
             <p>{copyright}</p>
@@ -205,8 +203,7 @@ function FooterSection({
   return (
     <div>
       <FooterHeading>{title}</FooterHeading>
-
-      <div className="mt-4 flex flex-col items-start gap-3">{children}</div>
+      <div className="mt-5 flex flex-col items-start gap-3">{children}</div>
     </div>
   );
 }

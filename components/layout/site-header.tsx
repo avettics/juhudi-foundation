@@ -35,7 +35,7 @@ export function SiteHeader() {
               href="/contribute"
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "hidden xl:inline-flex",
+                "hidden min-h-11 px-5 font-semibold xl:inline-flex",
               )}
             >
               Contribute
