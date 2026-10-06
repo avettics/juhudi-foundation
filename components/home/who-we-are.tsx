@@ -22,7 +22,7 @@ export function WhoWeAre() {
                 id="who-we-are-heading"
                 className="mt-5 font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl xl:text-[3.5rem]"
               >
-                Driven by purpose. Built around people.
+                Building potential. Creating possibility.
               </h2>
             </div>
           </Reveal>
@@ -37,7 +37,7 @@ export function WhoWeAre() {
               <p className="mt-5 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
                 Through education, mentorship, skills development, innovation,
                 and community engagement, we work alongside communities to
-                strengthen self-reliance and create lasting opportunities.
+                strengthen self-reliance and support lasting progress.
               </p>
 
               <Link
