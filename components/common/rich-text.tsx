@@ -1,49 +1,15 @@
-import {
-  PortableText,
-  type PortableTextBlock,
-  type PortableTextComponents,
-} from "@portabletext/react";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { urlFor } from "@/sanity/lib/image";
-import { resolveInternalHref } from "@/sanity/lib/links";
+import { getImageDimensions, urlFor } from "@/sanity/lib/image";
+import { resolveExternalHref, resolveInternalHref } from "@/sanity/lib/links";
 
-type RichTextImageValue = {
-  _type: "image";
-  asset?: {
-    _ref?: string;
-    _type?: "reference";
-  } | null;
-  alt?: string | null;
-  caption?: string | null;
-  hotspot?: {
-    x?: number;
-    y?: number;
-    height?: number;
-    width?: number;
-  } | null;
-  crop?: {
-    top?: number;
-    bottom?: number;
-    left?: number;
-    right?: number;
-  } | null;
-};
+import type { PROGRAMME_BY_SLUG_QUERY_RESULT } from "@/sanity.types";
 
-type ExternalLinkValue = {
-  href?: string | null;
-  openInNewTab?: boolean | null;
-};
+type RichTextContent = NonNullable<PROGRAMME_BY_SLUG_QUERY_RESULT>["content"];
 
-type InternalLinkValue = {
-  reference?: {
-    _type: string;
-    slug?: string | null;
-  } | null;
-};
-
-const components: PortableTextComponents = {
+const components: PortableTextComponents<RichTextContent[number]> = {
   block: {
     normal: ({ children }) => (
       <p className="leading-7 not-first:mt-6">{children}</p>
@@ -86,17 +52,17 @@ const components: PortableTextComponents = {
 
   marks: {
     externalLink: ({ children, value }) => {
-      const link = value as ExternalLinkValue | undefined;
+      const href = resolveExternalHref(value?.href);
 
-      if (!link?.href) {
+      if (!href) {
         return <>{children}</>;
       }
 
-      const openInNewTab = link.openInNewTab === true;
+      const openInNewTab = value?.openInNewTab === true;
 
       return (
         <a
-          href={link.href}
+          href={href}
           target={openInNewTab ? "_blank" : undefined}
           rel={openInNewTab ? "noopener noreferrer" : undefined}
           className="font-medium underline underline-offset-4"
@@ -107,8 +73,7 @@ const components: PortableTextComponents = {
     },
 
     internalLink: ({ children, value }) => {
-      const link = value as InternalLinkValue | undefined;
-      const href = resolveInternalHref(link?.reference);
+      const href = resolveInternalHref(value?.reference);
 
       if (!href) {
         return <>{children}</>;
@@ -124,9 +89,10 @@ const components: PortableTextComponents = {
 
   types: {
     image: ({ value }) => {
-      const image = value as RichTextImageValue;
+      const image = value;
+      const dimensions = getImageDimensions(image);
 
-      if (!image.asset?._ref) {
+      if (!image.asset?._ref || !dimensions) {
         return null;
       }
 
@@ -137,8 +103,8 @@ const components: PortableTextComponents = {
           <Image
             src={src}
             alt={image.alt ?? ""}
-            width={1600}
-            height={1000}
+            width={dimensions.width}
+            height={dimensions.height}
             sizes="(max-width: 768px) 100vw, 768px"
             className="h-auto w-full rounded-lg object-cover"
           />
@@ -155,7 +121,7 @@ const components: PortableTextComponents = {
 };
 
 type RichTextProps = {
-  value: PortableTextBlock[] | null | undefined;
+  value: RichTextContent | null | undefined;
 };
 
 export function RichText({ value }: RichTextProps) {

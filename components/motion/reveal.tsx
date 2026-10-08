@@ -1,5 +1,7 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
+
 import { motion, useReducedMotion, type HTMLMotionProps } from "motion/react";
 
 import { cn } from "@/lib/utils";
@@ -12,6 +14,10 @@ type RevealProps = Omit<
   distance?: number;
 };
 
+const subscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
+
 export function Reveal({
   children,
   className,
@@ -21,33 +27,27 @@ export function Reveal({
 }: RevealProps) {
   const shouldReduceMotion = useReducedMotion();
 
+  const hydrated = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
+  const animate = hydrated && shouldReduceMotion === false;
+
   return (
     <motion.div
       {...props}
       className={cn(className)}
-      initial={
-        shouldReduceMotion
-          ? false
-          : {
-              opacity: 0,
-              y: distance,
-            }
-      }
-      whileInView={
-        shouldReduceMotion
-          ? undefined
-          : {
-              opacity: 1,
-              y: 0,
-            }
-      }
+      initial={false}
+      animate={animate ? { opacity: 0, y: distance } : { opacity: 1, y: 0 }}
+      whileInView={animate ? { opacity: 1, y: 0 } : undefined}
       viewport={{
         once: true,
         amount: 0.2,
       }}
       transition={
-        shouldReduceMotion
-          ? undefined
+        !animate
+          ? { duration: 0 }
           : {
               duration: 0.6,
               delay,

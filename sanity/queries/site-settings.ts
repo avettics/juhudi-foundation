@@ -42,6 +42,8 @@ export const SITE_SETTINGS_QUERY = defineQuery(`
       metaDescription,
       socialImage {
         asset,
+        crop,
+        hotspot,
         alt
       },
       noIndex

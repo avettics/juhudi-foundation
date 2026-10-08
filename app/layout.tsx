@@ -45,9 +45,21 @@ export default function RootLayout({
       className={`${manrope.variable} ${dmSans.variable} ${geistMono.variable}`}
     >
       <body className="flex min-h-screen flex-col antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-md focus:bg-background focus:px-4 focus:py-3 focus:text-foreground focus:ring-2 focus:ring-primary"
+        >
+          Skip to content
+        </a>
         <SiteHeader />
 
-        <main className="flex-1">{children}</main>
+        <main
+          id="main-content"
+          tabIndex={-1}
+          className="min-w-0 flex-1 scroll-mt-20"
+        >
+          {children}
+        </main>
 
         <SiteFooter />
 

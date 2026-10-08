@@ -92,9 +92,27 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(`
       metaDescription,
       socialImage {
         asset,
+        crop,
+        hotspot,
         alt
       },
       noIndex
     }
+  }
+`);
+
+/** Homepage selection: preserve collection ordering, filter before limiting. */
+export const FEATURED_PROJECTS_QUERY = defineQuery(`
+  *[_type == "project" && featured == true &&
+    defined(slug.current) && slug.current != "" &&
+    defined(title) && title != "" && defined(featuredImage.asset._ref)]
+    | order(startDate desc, title asc)[0...3] {
+    _id,
+    title,
+    "slug": slug.current,
+    shortDescription,
+    location,
+    programme-> { title },
+    featuredImage { asset, alt, hotspot, crop }
   }
 `);

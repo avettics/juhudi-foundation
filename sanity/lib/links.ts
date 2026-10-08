@@ -29,7 +29,7 @@ export function resolveInternalHref(
 }
 
 function isInternalLinkType(type: string): type is InternalLinkType {
-  return type in INTERNAL_ROUTE_PREFIXES;
+  return Object.prototype.hasOwnProperty.call(INTERNAL_ROUTE_PREFIXES, type);
 }
 
 type SanityLink = {
@@ -66,13 +66,30 @@ export function resolveLink(
     };
   }
 
-  if (link.linkType === "external" && link.url) {
+  const href = resolveExternalHref(link.url);
+  if (link.linkType === "external" && href) {
     return {
-      href: link.url,
+      href,
       external: true,
       openInNewTab: link.openInNewTab === true,
     };
   }
 
   return null;
+}
+
+/** Studio validation does not cover imports or direct API writes. */
+export function resolveExternalHref(
+  value: string | null | undefined,
+): string | null {
+  const href = value?.trim();
+  if (!href || /[\u0000-\u0020\u007f]/.test(href)) return null;
+  try {
+    const url = new URL(href);
+    return ["http:", "https:", "mailto:", "tel:"].includes(url.protocol)
+      ? href
+      : null;
+  } catch {
+    return null;
+  }
 }

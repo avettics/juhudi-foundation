@@ -61,12 +61,12 @@ export async function OurWork() {
             <Reveal
               key={programme._id}
               delay={Math.min(index * 0.04, 0.16)}
-              className="h-full"
+              className="h-full min-w-0 wrap-anywhere"
             >
               <Card className="h-full border-border bg-background py-0 transition-[border-color,box-shadow] duration-200 hover:border-primary/35 hover:shadow-sm">
                 <Link
                   href={`/our-work/${programme.slug}`}
-                  className="group flex h-full flex-col rounded-xl focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+                  className="group flex h-full flex-col rounded-xl focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/50"
                 >
                   <CardContent className="flex flex-1 flex-col p-5 sm:p-6 lg:p-7">
                     <h3 className="max-w-sm font-heading text-xl font-semibold leading-[1.15] tracking-tight text-balance text-foreground transition-colors duration-200 group-hover:text-primary sm:text-2xl">

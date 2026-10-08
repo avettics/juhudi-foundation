@@ -7,23 +7,12 @@ import { Reveal } from "@/components/motion/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
-import { PROJECTS_QUERY } from "@/sanity/queries/projects";
+import { FEATURED_PROJECTS_QUERY } from "@/sanity/queries/projects";
 
 export async function FeaturedProjects() {
-  const { data: projects } = await sanityFetch({
-    query: PROJECTS_QUERY,
+  const { data: featuredProjects } = await sanityFetch({
+    query: FEATURED_PROJECTS_QUERY,
   });
-
-  const featuredProjects =
-    projects
-      ?.filter(
-        (project) =>
-          project.featured &&
-          project.slug &&
-          project.title &&
-          project.featuredImage?.asset,
-      )
-      .slice(0, 3) ?? [];
 
   if (!featuredProjects.length) {
     return null;
@@ -84,12 +73,12 @@ export async function FeaturedProjects() {
               <Reveal
                 key={project._id}
                 delay={Math.min(index * 0.06, 0.12)}
-                className="h-full"
+                className="h-full min-w-0 wrap-anywhere"
               >
                 <Card className="group h-full overflow-hidden border-border bg-background py-0 transition-[border-color,box-shadow] duration-200 hover:border-primary/30 hover:shadow-md">
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="flex h-full flex-col rounded-xl focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+                    className="flex h-full flex-col rounded-xl focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/50"
                   >
                     <div className="relative aspect-3/2 overflow-hidden bg-muted">
                       <Image
