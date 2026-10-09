@@ -1,6 +1,3 @@
-import Link from "next/link";
-import { ArrowRightIcon } from "lucide-react";
-
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/motion/reveal";
 import { sanityFetch } from "@/sanity/lib/live";
@@ -41,17 +38,6 @@ export async function Impact() {
             >
               Progress that matters.
             </h2>
-
-            <Link
-              href="/impact"
-              className="group mt-7 inline-flex min-h-11 items-center gap-2 rounded-sm font-semibold text-primary transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-            >
-              Explore our impact
-              <ArrowRightIcon
-                aria-hidden="true"
-                className="size-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
-              />
-            </Link>
           </div>
         </Reveal>
 
