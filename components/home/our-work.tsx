@@ -21,7 +21,7 @@ export async function OurWork() {
 
   return (
     <section
-      className="bg-background py-16 sm:py-20 lg:py-24 xl:py-28"
+      className="bg-muted/40 py-16 sm:py-20 lg:py-24 xl:py-28"
       aria-labelledby="our-work-heading"
     >
       <Container>
@@ -38,14 +38,14 @@ export async function OurWork() {
               Creating opportunities that matter.
             </h2>
 
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
               Six areas of work guide how we empower people, strengthen
               communities, and create opportunities for lasting progress.
             </p>
 
             <Link
               href="/our-work"
-              className="group mt-5 inline-flex min-h-11 items-center gap-2 rounded-sm font-semibold text-primary transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+              className="group mt-7 inline-flex min-h-11 items-center gap-2 rounded-sm font-semibold text-primary transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
             >
               Explore all our work
               <ArrowRightIcon
@@ -56,32 +56,32 @@ export async function OurWork() {
           </div>
         </Reveal>
 
-        <div className="mt-10 grid items-stretch gap-4 sm:mt-12 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-5">
+        <div className="mt-12 grid items-stretch gap-4 sm:mt-14 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-5">
           {visibleProgrammes.map((programme, index) => (
             <Reveal
               key={programme._id}
               delay={Math.min(index * 0.04, 0.16)}
-              className="h-full min-w-0 wrap-anywhere"
+              className="h-full min-w-0"
             >
-              <Card className="h-full border-border bg-background py-0 transition-[border-color,box-shadow] duration-200 hover:border-primary/35 hover:shadow-sm">
+              <Card className="h-full overflow-hidden border-border bg-background py-0 transition-[border-color,box-shadow] duration-200 hover:border-primary/30 hover:shadow-sm">
                 <Link
                   href={`/our-work/${programme.slug}`}
-                  className="group flex h-full flex-col rounded-xl focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/50"
+                  className="group flex h-full min-w-0 flex-col rounded-xl focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/50"
                 >
-                  <CardContent className="flex flex-1 flex-col p-5 sm:p-6 lg:p-7">
-                    <h3 className="max-w-sm font-heading text-xl font-semibold leading-[1.15] tracking-tight text-balance text-foreground transition-colors duration-200 group-hover:text-primary sm:text-2xl">
+                  <CardContent className="flex min-w-0 flex-1 flex-col p-5 sm:p-6 lg:p-7">
+                    <h3 className="max-w-sm wrap-break-word font-heading text-xl font-semibold leading-[1.15] tracking-tight text-balance text-foreground transition-colors duration-200 group-hover:text-primary sm:text-2xl">
                       {programme.title}
                     </h3>
 
                     {programme.shortDescription ? (
-                      <p className="mt-4 text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
+                      <p className="mt-4 wrap-break-word text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
                         {programme.shortDescription}
                       </p>
                     ) : null}
 
                     <div className="mt-auto pt-7">
                       <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                        Learn more
+                        Explore programme
                         <ArrowRightIcon
                           aria-hidden="true"
                           className="size-4 transition-transform duration-200 group-hover:translate-x-1"

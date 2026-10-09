@@ -8,10 +8,29 @@ import { cn } from "@/lib/utils";
 
 export function HomeHero() {
   return (
-    <section className="bg-background" aria-labelledby="home-hero-heading">
+    <section
+      className="relative isolate overflow-hidden bg-background"
+      aria-labelledby="home-hero-heading"
+    >
+      {/* Juhudi brand watermark */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center overflow-hidden"
+      >
+        <div className="relative size-112 shrink-0 sm:size-152 lg:size-208 xl:size-240">
+          <Image
+            src="/brand/juhudi-mark.svg"
+            alt=""
+            fill
+            sizes="(min-width: 1280px) 960px, (min-width: 1024px) 832px, (min-width: 640px) 608px, 448px"
+            className="object-contain opacity-[0.035] sm:opacity-[0.04] lg:opacity-[0.045]"
+          />
+        </div>
+      </div>
+
       <Container>
         <div className="grid items-center gap-10 py-12 sm:gap-12 sm:py-16 lg:min-h-160 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:py-20 xl:gap-20">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <div className="flex min-w-0 flex-col items-center text-center lg:items-start lg:text-left">
             <Reveal>
               <p className="text-xs font-semibold tracking-[0.18em] text-primary sm:text-sm">
                 UPLIFT • EMPOWER • INSPIRE
@@ -28,10 +47,9 @@ export function HomeHero() {
             </Reveal>
 
             <Reveal delay={0.16}>
-              <p className="mt-6 max-w-xl text-base leading-7 text-pretty text-muted-foreground sm:text-lg sm:leading-8">
-                We create opportunities for youth and women through education,
-                skills development, leadership, innovation, and community-led
-                action.
+              <p className="mt-6 max-w-lg text-base leading-7 text-pretty text-muted-foreground sm:text-lg sm:leading-8">
+                Creating opportunities for youth and women to learn, lead, and
+                build stronger futures.
               </p>
             </Reveal>
 
@@ -44,7 +62,7 @@ export function HomeHero() {
                     "min-h-12 w-full px-6 font-semibold sm:w-auto",
                   )}
                 >
-                  Explore Our Work
+                  Explore our work
                 </Link>
 
                 <Link
@@ -57,13 +75,13 @@ export function HomeHero() {
                     "min-h-12 w-full px-6 font-semibold sm:w-auto",
                   )}
                 >
-                  Get Involved
+                  Get involved
                 </Link>
               </div>
             </Reveal>
           </div>
 
-          <Reveal delay={0.12} className="w-full">
+          <Reveal delay={0.12} className="w-full min-w-0">
             <div className="relative aspect-4/3 overflow-hidden rounded-xl bg-muted sm:aspect-3/2 lg:aspect-4/3">
               <Image
                 src="/images/home/juhudi-team.png"

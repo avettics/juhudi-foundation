@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Geist_Mono, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -7,20 +7,28 @@ import { SanityLive } from "@/sanity/lib/live";
 
 import "./globals.css";
 
-const manrope = Manrope({
-  subsets: ["latin"],
+const manrope = localFont({
+  src: "./fonts/manrope-latin-variable.woff2",
+  weight: "200 800",
+  style: "normal",
   variable: "--font-sans",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
-  subsets: ["latin"],
+const dmSans = localFont({
+  src: "./fonts/dm-sans-latin-variable.woff2",
+  weight: "100 1000",
+  style: "normal",
   variable: "--font-heading",
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
+const geistMono = localFont({
+  src: "./fonts/geist-mono-latin-variable.woff2",
+  weight: "100 900",
+  style: "normal",
+  // Monospace is available through font-mono but unused on the homepage.
+  preload: false,
   variable: "--font-geist-mono",
   display: "swap",
 });
