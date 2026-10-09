@@ -2,20 +2,10 @@ import type { Metadata } from "next";
 
 import { urlFor } from "@/sanity/lib/image";
 
-type SeoImage = {
-  asset?: {
-    _ref?: string;
-    _type?: "reference";
-  } | null;
-  alt?: string | null;
-};
+import type { SITE_SETTINGS_QUERY_RESULT } from "@/sanity.types";
 
-type SeoData = {
-  metaTitle?: string | null;
-  metaDescription?: string | null;
-  socialImage?: SeoImage | null;
-  noIndex?: boolean | null;
-};
+type SeoData = NonNullable<SITE_SETTINGS_QUERY_RESULT>["seo"];
+type SeoImage = NonNullable<SeoData>["socialImage"];
 
 type BuildMetadataOptions = {
   seo?: SeoData | null;

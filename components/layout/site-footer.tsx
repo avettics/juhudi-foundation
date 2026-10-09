@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 
 import { Container } from "@/components/common/container";
+import { resolveExternalHref } from "@/sanity/lib/links";
 import { sanityFetch } from "@/sanity/lib/live";
 import { CONTACT_INFORMATION_QUERY } from "@/sanity/queries/contact-information";
 import { SITE_SETTINGS_QUERY } from "@/sanity/queries/site-settings";
@@ -47,12 +48,10 @@ export async function SiteFooter() {
     .filter(Boolean)
     .join(", ");
 
-  const copyright =
-    settings?.copyrightText ??
-    `© ${new Date().getFullYear()} Juhudi Foundation. All rights reserved.`;
+  const copyright = `© ${new Date().getFullYear()} ${settings?.copyrightText?.trim() || "Juhudi Foundation. All rights reserved."}`;
 
   return (
-    <footer className="bg-black text-white">
+    <footer className="wrap-anywhere bg-black text-white">
       <Container>
         <div className="grid gap-x-8 gap-y-10 py-12 sm:py-14 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.25fr] lg:gap-x-10 lg:py-16">
           <div className="max-w-sm">
@@ -150,14 +149,15 @@ export async function SiteFooter() {
                 className="mt-6 flex flex-wrap gap-x-4 gap-y-2"
               >
                 {settings.socialLinks.map((social) => {
-                  if (!social?.platform || !social.url) {
+                  const href = resolveExternalHref(social?.url);
+                  if (!social?.platform || !href) {
                     return null;
                   }
 
                   return (
                     <a
                       key={`${social.platform}-${social.url}`}
-                      href={social.url}
+                      href={href}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={footerLinkClassName}

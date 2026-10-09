@@ -16,8 +16,8 @@ export const mainNavigation = [
     href: "/impact",
   },
   {
-    label: "Stories",
-    href: "/stories",
+    label: "Gallery",
+    href: "/gallery",
   },
   {
     label: "Get Involved",

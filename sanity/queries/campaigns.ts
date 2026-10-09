@@ -111,6 +111,8 @@ export const CAMPAIGN_BY_SLUG_QUERY = defineQuery(`
       metaDescription,
       socialImage {
         asset,
+        crop,
+        hotspot,
         alt
       },
       noIndex
