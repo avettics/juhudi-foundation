@@ -10,7 +10,7 @@ import { MobileNav } from "./mobile-nav";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/90">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
       <Container>
         <div className="flex h-16 min-w-0 items-center justify-between gap-4 xl:grid xl:grid-cols-[1fr_auto_1fr]">
           <Link

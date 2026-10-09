@@ -13,15 +13,14 @@ const exploreLinks = [
   { label: "About", href: "/about" },
   { label: "Our Work", href: "/our-work" },
   { label: "Projects", href: "/projects" },
-  { label: "Impact", href: "/impact" },
-  { label: "Stories", href: "/stories" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 const involvementLinks = [
-  { label: "Get Involved", href: "/get-involved" },
-  { label: "Opportunities", href: "/opportunities" },
-  { label: "Events", href: "/events" },
-  { label: "Contribute", href: "/contribute" },
+  { label: "Volunteer with us", href: "/get-involved/volunteer" },
+  { label: "Partner with us", href: "/get-involved/partner" },
+  { label: "Support us", href: "/get-involved/support" },
 ] as const;
 
 const footerLinkClassName =
@@ -48,7 +47,9 @@ export async function SiteFooter() {
     .filter(Boolean)
     .join(", ");
 
-  const copyright = `© ${new Date().getFullYear()} ${settings?.copyrightText?.trim() || "Juhudi Foundation. All rights reserved."}`;
+  const copyright = `© ${new Date().getFullYear()} ${
+    settings?.copyrightText?.trim() || "Juhudi Foundation. All rights reserved."
+  }`;
 
   return (
     <footer className="wrap-anywhere bg-black text-white">
@@ -150,6 +151,7 @@ export async function SiteFooter() {
               >
                 {settings.socialLinks.map((social) => {
                   const href = resolveExternalHref(social?.url);
+
                   if (!social?.platform || !href) {
                     return null;
                   }
@@ -203,6 +205,7 @@ function FooterSection({
   return (
     <div>
       <FooterHeading>{title}</FooterHeading>
+
       <div className="mt-5 flex flex-col items-start gap-3">{children}</div>
     </div>
   );
