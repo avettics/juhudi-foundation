@@ -12,10 +12,6 @@ export const mainNavigation = [
     href: "/projects",
   },
   {
-    label: "Impact",
-    href: "/impact",
-  },
-  {
     label: "Gallery",
     href: "/gallery",
   },
