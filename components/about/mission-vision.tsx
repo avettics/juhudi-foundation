@@ -1,7 +1,13 @@
+import { defaultTagline } from "@/sanity/content/defaults";
+import { getAboutContent, getSiteSettings } from "@/sanity/lib/page-content";
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/motion/reveal";
 
-export function MissionVision() {
+export async function MissionVision() {
+  const [{ purpose: copy }, settings] = await Promise.all([
+    getAboutContent(),
+    getSiteSettings(),
+  ]);
   return (
     <section
       className="bg-muted/40 py-16 sm:py-20 lg:py-24"
@@ -18,12 +24,11 @@ export function MissionVision() {
               id="mission-vision-heading"
               className="mx-auto mt-5 max-w-3xl font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl"
             >
-              What moves us forward.
+              {copy.title}
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-pretty text-muted-foreground sm:text-lg sm:leading-8">
-              We believe lasting progress begins when people have the
-              opportunity to grow.
+              {copy.description}
             </p>
           </div>
         </Reveal>
@@ -36,12 +41,11 @@ export function MissionVision() {
               </p>
 
               <h3 className="mt-5 max-w-lg font-heading text-2xl font-semibold leading-[1.2] tracking-tight text-balance sm:text-3xl">
-                Empower people to shape their own futures.
+                {copy.missionTitle}
               </h3>
 
               <p className="mt-4 max-w-md text-base leading-7 text-pretty text-muted-foreground">
-                Creating access to skills, opportunities, and support that
-                strengthen confidence and self-reliance.
+                {copy.missionDescription}
               </p>
             </div>
           </Reveal>
@@ -53,12 +57,11 @@ export function MissionVision() {
               </p>
 
               <h3 className="mt-5 max-w-lg font-heading text-2xl font-semibold leading-[1.2] tracking-tight text-balance sm:text-3xl">
-                A future where people and communities thrive.
+                {copy.visionTitle}
               </h3>
 
               <p className="mt-4 max-w-md text-base leading-7 text-pretty text-muted-foreground">
-                Where potential becomes opportunity and progress creates lasting
-                change.
+                {copy.visionDescription}
               </p>
             </div>
           </Reveal>
@@ -66,8 +69,8 @@ export function MissionVision() {
 
         <Reveal delay={0.14}>
           <div className="mx-auto mt-10 text-center">
-            <p className="text-xs font-semibold tracking-[0.2em] text-primary sm:text-sm">
-              UPLIFT • EMPOWER • INSPIRE
+            <p className="text-xs font-semibold tracking-[0.2em] text-primary sm:text-sm uppercase">
+              {settings?.tagline ?? defaultTagline}
             </p>
           </div>
         </Reveal>

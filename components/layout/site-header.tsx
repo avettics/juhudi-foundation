@@ -23,7 +23,7 @@ export function SiteHeader() {
               alt="Juhudi Foundation"
               width={2993}
               height={1415}
-              priority
+              loading="eager"
               className="h-10 w-auto sm:h-11"
             />
           </Link>

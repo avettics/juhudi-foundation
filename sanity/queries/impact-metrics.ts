@@ -31,3 +31,10 @@ export const IMPACT_METRICS_QUERY = defineQuery(`
     order
   }
 `);
+
+export const FEATURED_IMPACT_METRICS_QUERY = defineQuery(`
+  *[_type == "impactMetric" && featured == true && title != "" && defined(title) && defined(value)]
+    | order(order asc, title asc)[0...4] {
+      _id, title, value, prefix, suffix
+    }
+`);

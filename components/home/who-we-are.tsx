@@ -1,10 +1,12 @@
+import { getHomeContent } from "@/sanity/lib/page-content";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
 
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/motion/reveal";
 
-export function WhoWeAre() {
+export async function WhoWeAre() {
+  const { introduction: copy } = await getHomeContent();
   return (
     <section
       className="bg-muted/40 py-16 sm:py-20 lg:py-24 xl:py-28"
@@ -21,14 +23,13 @@ export function WhoWeAre() {
               id="who-we-are-heading"
               className="mx-auto mt-5 max-w-3xl font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl xl:text-[3.5rem]"
             >
-              Building potential. Creating possibility.
+              {copy.title}
             </h2>
           </Reveal>
 
           <Reveal delay={0.08}>
             <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-pretty text-foreground sm:text-xl sm:leading-9">
-              We create opportunities for youth and women to learn, grow, lead,
-              and build stronger futures.
+              {copy.description}
             </p>
           </Reveal>
 

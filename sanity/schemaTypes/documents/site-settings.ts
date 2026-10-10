@@ -1,3 +1,5 @@
+import { defaultTagline } from "../../content/defaults";
+import { pageContentFields } from "../objects/page-content";
 import { defineField, defineType } from "sanity";
 
 type SocialLinkValue = {
@@ -12,6 +14,9 @@ export const siteSettings = defineType({
     "Global configuration used across the Juhudi Foundation website.",
 
   groups: [
+    { name: "homePage", title: "Homepage" },
+    { name: "aboutPage", title: "About page" },
+    { name: "ourWorkPage", title: "Our Work page" },
     {
       name: "general",
       title: "General",
@@ -36,6 +41,7 @@ export const siteSettings = defineType({
   ],
 
   fields: [
+    ...pageContentFields,
     defineField({
       name: "siteTitle",
       title: "Site Title",
@@ -50,7 +56,7 @@ export const siteSettings = defineType({
       title: "Tagline",
       type: "string",
       group: "general",
-      initialValue: "Uplift • Empower • Inspire",
+      initialValue: defaultTagline,
       validation: (rule) => rule.required().max(100),
     }),
 

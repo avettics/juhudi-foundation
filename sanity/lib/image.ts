@@ -31,6 +31,10 @@ export function getImageDimensions(image: {
 
   const width = Number(match[1]);
   const height = Number(match[2]);
+  if (
+    ![width, height].every((value) => Number.isSafeInteger(value) && value > 0)
+  )
+    return null;
   const { left = 0, right = 0, top = 0, bottom = 0 } = image.crop ?? {};
   if (
     ![left, right, top, bottom].every(

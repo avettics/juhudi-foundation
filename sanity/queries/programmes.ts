@@ -81,3 +81,10 @@ export const PROGRAMME_BY_SLUG_QUERY = defineQuery(`
     }
   }
 `);
+
+export const PROGRAMME_CARDS_QUERY = defineQuery(`
+  *[_type == "programme" && defined(slug.current) && slug.current != "" && defined(title) && title != ""]
+    | order(order asc, title asc) {
+      _id, title, "slug": slug.current, shortDescription
+    }
+`);

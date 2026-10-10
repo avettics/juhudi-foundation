@@ -1,3 +1,6 @@
+import { urlFor } from "@/sanity/lib/image";
+import { defaultTagline } from "@/sanity/content/defaults";
+import { getHomeContent, getSiteSettings } from "@/sanity/lib/page-content";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,7 +9,11 @@ import { Reveal } from "@/components/motion/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export function HomeHero() {
+export async function HomeHero() {
+  const [{ hero: copy }, settings] = await Promise.all([
+    getHomeContent(),
+    getSiteSettings(),
+  ]);
   return (
     <section
       className="relative isolate overflow-hidden bg-background"
@@ -32,8 +39,8 @@ export function HomeHero() {
         <div className="grid items-center gap-10 py-12 sm:gap-12 sm:py-16 lg:min-h-160 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:py-20 xl:gap-20">
           <div className="flex min-w-0 flex-col items-center text-center lg:items-start lg:text-left">
             <Reveal>
-              <p className="text-xs font-semibold tracking-[0.18em] text-primary sm:text-sm">
-                UPLIFT • EMPOWER • INSPIRE
+              <p className="text-xs font-semibold tracking-[0.18em] text-primary sm:text-sm uppercase">
+                {settings?.tagline ?? defaultTagline}
               </p>
             </Reveal>
 
@@ -42,14 +49,13 @@ export function HomeHero() {
                 id="home-hero-heading"
                 className="mt-5 max-w-2xl font-heading text-4xl font-semibold leading-[1.04] tracking-[-0.03em] text-balance sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4rem]"
               >
-                Empowering people. Strengthening communities.
+                {copy.title}
               </h1>
             </Reveal>
 
             <Reveal delay={0.16}>
-              <p className="mt-6 max-w-lg text-base leading-7 text-pretty text-muted-foreground sm:text-lg sm:leading-8">
-                Creating opportunities for youth and women to learn, lead, and
-                build stronger futures.
+              <p className="mt-6 max-w-lg text-base leading-7 text-pretty text-foreground/60 sm:text-lg sm:leading-8">
+                {copy.description}
               </p>
             </Reveal>
 
@@ -84,10 +90,18 @@ export function HomeHero() {
           <Reveal delay={0.12} className="w-full min-w-0">
             <div className="relative aspect-4/3 overflow-hidden rounded-xl bg-muted sm:aspect-3/2 lg:aspect-4/3">
               <Image
-                src="/images/home/juhudi-team.png"
-                alt="Juhudi Foundation team members together in Dar es Salaam"
+                src={
+                  copy.image?.asset?._ref
+                    ? urlFor(copy.image)
+                        .width(1280)
+                        .height(960)
+                        .fit("crop")
+                        .url()
+                    : "/images/home/juhudi-team.png"
+                }
+                alt={copy.image?.alt ?? copy.imageAlt}
                 fill
-                priority
+                preload
                 sizes="(min-width: 1280px) 640px, (min-width: 1024px) 55vw, (min-width: 640px) 90vw, 100vw"
                 className="object-cover object-center"
               />

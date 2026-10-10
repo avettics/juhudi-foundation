@@ -1,15 +1,17 @@
+import { getAboutContent } from "@/sanity/lib/page-content";
 import Image from "next/image";
 
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/motion/reveal";
 import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
-import { TEAM_MEMBERS_QUERY } from "@/sanity/queries/team-members";
+import { TEAM_CARDS_QUERY } from "@/sanity/queries/team-members";
 
 export async function OurTeam() {
-  const { data: teamMembers } = await sanityFetch({
-    query: TEAM_MEMBERS_QUERY,
-  });
+  const [{ team: copy }, { data: teamMembers }] = await Promise.all([
+    getAboutContent(),
+    sanityFetch({ query: TEAM_CARDS_QUERY }),
+  ]);
 
   const visibleTeamMembers =
     teamMembers?.filter(
@@ -36,12 +38,11 @@ export async function OurTeam() {
               id="our-team-heading"
               className="mx-auto mt-5 max-w-3xl font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl"
             >
-              The people behind Juhudi.
+              {copy.title}
             </h2>
 
             <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-pretty text-muted-foreground sm:text-lg sm:leading-8">
-              United by a shared commitment to people, opportunity, and
-              progress.
+              {copy.description}
             </p>
           </div>
         </Reveal>
@@ -64,7 +65,7 @@ export async function OurTeam() {
                     alt={member.photo.alt || member.name}
                     fill
                     sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                    className="object-cover object-center transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.02]"
                   />
                 </div>
 

@@ -1,3 +1,6 @@
+import { getAboutContent, getSiteSettings } from "@/sanity/lib/page-content";
+import { buildMetadata } from "@/sanity/lib/metadata";
+import { pageContentDefaults } from "@/sanity/content/defaults";
 import type { Metadata } from "next";
 
 import { AboutIntro } from "@/components/about/about-intro";
@@ -7,19 +10,27 @@ import { OurTeam } from "@/components/about/our-team";
 import { OurStory } from "@/components/about/our-story";
 import { PageHeader } from "@/components/common/page-header";
 
-export const metadata: Metadata = {
-  title: "About Juhudi Foundation",
-  description:
-    "Discover Juhudi Foundation, our purpose, our story, and the people behind our work.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const [content, settings] = await Promise.all([
+    getAboutContent(),
+    getSiteSettings(),
+  ]);
+  return buildMetadata({
+    seo: content.seo,
+    defaultSeo: settings?.seo,
+    fallbackTitle: "About",
+    fallbackDescription: pageContentDefaults.about.seo.metaDescription,
+  });
+}
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const { header } = await getAboutContent();
   return (
     <>
       <PageHeader
         eyebrow="ABOUT JUHUDI"
-        title="Uplift, Empower, Inspire"
-        description="Creating opportunities for people and communities to thrive."
+        title={header.title}
+        description={header.description}
       />
 
       <AboutIntro />

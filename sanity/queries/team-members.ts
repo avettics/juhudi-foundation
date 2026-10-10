@@ -23,3 +23,10 @@ export const TEAM_MEMBERS_QUERY = defineQuery(`
     order
   }
 `);
+
+export const TEAM_CARDS_QUERY = defineQuery(`
+  *[_type == "teamMember" && defined(name) && name != "" && defined(role) && role != "" && defined(photo.asset._ref)]
+    | order(group asc, order asc, name asc) {
+      _id, name, role, photo { asset, alt, hotspot, crop }
+    }
+`);

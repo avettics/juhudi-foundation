@@ -5,6 +5,10 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SanityLive } from "@/sanity/lib/live";
 
+import { getSiteSettings } from "@/sanity/lib/page-content";
+import { buildMetadata } from "@/sanity/lib/metadata";
+import { pageContentDefaults } from "@/sanity/content/defaults";
+
 import "./globals.css";
 
 const manrope = localFont({
@@ -33,14 +37,23 @@ const geistMono = localFont({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Juhudi Foundation",
-    template: "%s | Juhudi Foundation",
-  },
-  description:
-    "Juhudi Foundation empowers youth and women through education, mentorship, leadership development, skills training, innovation, and community engagement.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const siteTitle = settings?.siteTitle?.trim() || "Juhudi Foundation";
+  const metadata = buildMetadata({
+    seo: settings?.seo,
+    fallbackTitle: siteTitle,
+    fallbackDescription:
+      settings?.siteDescription ?? pageContentDefaults.home.seo.metaDescription,
+  });
+  return {
+    ...metadata,
+    title: {
+      default: settings?.seo?.metaTitle?.trim() || siteTitle,
+      template: `%s | ${siteTitle}`,
+    },
+  };
+}
 
 export default function RootLayout({
   children,

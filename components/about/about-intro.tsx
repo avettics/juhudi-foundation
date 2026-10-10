@@ -1,3 +1,5 @@
+import { urlFor } from "@/sanity/lib/image";
+import { getAboutContent } from "@/sanity/lib/page-content";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
@@ -5,7 +7,8 @@ import { ArrowRightIcon } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/motion/reveal";
 
-export function AboutIntro() {
+export async function AboutIntro() {
+  const { introduction: copy } = await getAboutContent();
   return (
     <section
       className="bg-background py-16 sm:py-20 lg:py-24"
@@ -24,17 +27,15 @@ export function AboutIntro() {
                 id="about-intro-heading"
                 className="mt-5 font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl"
               >
-                Built for possibility.
+                {copy.title}
               </h2>
 
               <p className="mt-6 font-heading text-xl font-medium leading-8 tracking-[-0.01em] text-balance text-foreground sm:text-2xl sm:leading-9">
-                Juhudi Foundation is a Tanzanian non-profit empowering youth,
-                women, and communities.
+                {copy.summary}
               </p>
 
               <p className="mt-5 text-base leading-7 text-pretty text-muted-foreground sm:text-lg sm:leading-8">
-                We help people build skills, confidence, and self-reliance to
-                create meaningful change in their lives and communities.
+                {copy.description}
               </p>
 
               <Link
@@ -54,8 +55,16 @@ export function AboutIntro() {
           <Reveal delay={0.08} className="w-full min-w-0">
             <div className="relative aspect-4/3 overflow-hidden rounded-xl bg-muted sm:aspect-3/2 lg:aspect-4/3">
               <Image
-                src="/images/home/juhudifoundation.png"
-                alt="Juhudi Foundation working with people in the community"
+                src={
+                  copy.image?.asset?._ref
+                    ? urlFor(copy.image)
+                        .width(1280)
+                        .height(960)
+                        .fit("crop")
+                        .url()
+                    : "/images/home/juhudifoundation.png"
+                }
+                alt={copy.image?.alt ?? copy.imageAlt}
                 fill
                 sizes="(min-width: 1280px) 620px, (min-width: 1024px) 52vw, 100vw"
                 className="object-cover object-center"
