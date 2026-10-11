@@ -17,6 +17,13 @@ export const siteSettings = defineType({
     { name: "homePage", title: "Homepage" },
     { name: "aboutPage", title: "About page" },
     { name: "ourWorkPage", title: "Our Work page" },
+    { name: "getInvolvedPage", title: "Get Involved page" },
+    { name: "volunteerPage", title: "Volunteer page" },
+    { name: "partnerPage", title: "Partner page" },
+    { name: "contributePage", title: "Contribute page" },
+    { name: "projectsPage", title: "Projects page" },
+    { name: "galleryPage", title: "Gallery page" },
+    { name: "contactPage", title: "Contact page" },
     {
       name: "general",
       title: "General",

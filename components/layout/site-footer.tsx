@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 
 import { Container } from "@/components/common/container";
 import { resolveExternalHref } from "@/sanity/lib/links";
@@ -20,7 +21,6 @@ const exploreLinks = [
 const involvementLinks = [
   { label: "Volunteer with us", href: "/get-involved/volunteer" },
   { label: "Partner with us", href: "/get-involved/partner" },
-  { label: "Support us", href: "/get-involved/support" },
   { label: "Contribute", href: "/contribute" },
 ] as const;
 
@@ -143,6 +143,24 @@ export async function SiteFooter() {
                   </a>
                 </div>
               ) : null}
+
+              {contact?.whatsappNumber ? (
+                <div className="flex min-w-0 items-start gap-2.5">
+                  <FaWhatsapp
+                    aria-hidden="true"
+                    className="mt-1 size-4 shrink-0 text-white/50"
+                  />
+                  <a
+                    href={`https://wa.me/${toWhatsAppHref(contact.whatsappNumber)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={contactLinkClassName}
+                    aria-label={`Chat with Juhudi Foundation on WhatsApp at ${contact.whatsappNumber}`}
+                  >
+                    {contact.whatsappNumber}
+                  </a>
+                </div>
+              ) : null}
             </div>
 
             {settings?.socialLinks?.length ? (
@@ -230,4 +248,8 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
 
 function toTelephoneHref(phone: string) {
   return phone.replace(/[^\d+]/g, "");
+}
+
+function toWhatsAppHref(phone: string) {
+  return phone.replace(/\D/g, "");
 }

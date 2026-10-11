@@ -579,7 +579,7 @@ export type SiteSettings = {
       description: string;
       volunteerDescription: string;
       partnerDescription: string;
-      supportDescription: string;
+      contributionDescription: string;
     };
     contribution?: {
       title: string;
@@ -640,6 +640,55 @@ export type SiteSettings = {
     seo?: Seo;
   };
   ourWorkPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  getInvolvedPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  volunteerPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  partnerPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  contributePage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  projectsPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  galleryPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  contactPage?: {
     header?: {
       title: string;
       description: string;
@@ -1407,7 +1456,7 @@ export type HOME_CONTENT_QUERY_RESULT = {
     description: string;
     volunteerDescription: string;
     partnerDescription: string;
-    supportDescription: string;
+    supportDescription: null;
   } | null;
   contribution: {
     title: string;
@@ -1493,6 +1542,153 @@ export type ABOUT_CONTENT_QUERY_RESULT = {
 // Variable: OUR_WORK_CONTENT_QUERY
 // Query: *[_type == "siteSettings" && _id == "siteSettings"][0].ourWorkPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
 export type OUR_WORK_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: GET_INVOLVED_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].getInvolvedPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type GET_INVOLVED_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: VOLUNTEER_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].volunteerPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type VOLUNTEER_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: PARTNER_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].partnerPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type PARTNER_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: CONTRIBUTE_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].contributePage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type CONTRIBUTE_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: PROJECTS_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].projectsPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type PROJECTS_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: GALLERY_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].galleryPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type GALLERY_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: CONTACT_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].contactPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type CONTACT_CONTENT_QUERY_RESULT = {
   header: {
     title: string;
     description: string;
@@ -2190,6 +2386,13 @@ declare module "@sanity/client" {
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].homePage {\n    hero { title, description, imageAlt, image { asset, alt, crop, hotspot } },\n    introduction { title, description },\n    impact { title },\n    work { title, description },\n    projects { title, description },\n    involvement { title, description, volunteerDescription, partnerDescription, supportDescription },\n    contribution { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': HOME_CONTENT_QUERY_RESULT;
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].aboutPage {\n    introduction { title, summary, description, imageAlt, image { asset, alt, crop, hotspot } },\n    purpose { title, description, missionTitle, missionDescription, visionTitle, visionDescription },\n    story { title, description, introduction, paragraph1, paragraph2, paragraph3, closing },\n    principles { title, description, items[] { _key, title, description } },\n    team { title, description },\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': ABOUT_CONTENT_QUERY_RESULT;
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].ourWorkPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': OUR_WORK_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].getInvolvedPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': GET_INVOLVED_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].volunteerPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': VOLUNTEER_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].partnerPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': PARTNER_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].contributePage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': CONTRIBUTE_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].projectsPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': PROJECTS_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].galleryPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': GALLERY_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].contactPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': CONTACT_CONTENT_QUERY_RESULT;
     '\n  *[_type == "partner"] | order(order asc, name asc) {\n    _id,\n    name,\n    partnerType,\n    description,\n    websiteUrl,\n\n    programmes[]-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    projects[]-> {\n      _id,\n      title,\n      "slug": slug.current,\n      status\n    },\n\n    logo {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order\n  }\n': PARTNERS_QUERY_RESULT;
     '\n  *[_type == "programme"] | order(order asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    focusAreas,\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n    featured,\n    order\n  }\n': PROGRAMMES_QUERY_RESULT;
     '\n  *[_type == "programme" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n\n    content[] {\n      ...,\n\n      markDefs[] {\n        ...,\n\n        _type == "internalLink" => {\n          ...,\n          reference-> {\n            _type,\n            "slug": slug.current\n          }\n        }\n      },\n\n      _type == "image" => {\n        asset,\n        alt,\n        caption,\n        hotspot,\n        crop\n      }\n    },\n\n    focusAreas,\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        crop,\n        hotspot,\n        alt\n      },\n      noIndex\n    }\n  }\n': PROGRAMME_BY_SLUG_QUERY_RESULT;

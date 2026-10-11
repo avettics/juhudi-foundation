@@ -21,10 +21,10 @@ export async function GetInvolved() {
       action: "Partner with us",
     },
     {
-      title: "Support our work",
+      title: "Make a contribution",
       description: copy.supportDescription,
-      href: "/get-involved/support",
-      action: "Ways to support",
+      href: "/contribute",
+      action: "Contribute",
     },
   ] as const;
 

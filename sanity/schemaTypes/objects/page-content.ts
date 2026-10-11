@@ -158,8 +158,8 @@ export const pageContentFields = [
             validation: (rule) => rule.required(),
           }),
           defineField({
-            name: "supportDescription",
-            title: "Support Description",
+            name: "contributionDescription",
+            title: "Contribution Description",
             type: "text",
             rows: 3,
             validation: (rule) => rule.required(),
@@ -464,6 +464,247 @@ export const pageContentFields = [
         ],
       }),
       defineField({ name: "seo", title: "SEO", type: "seo" }),
+    ],
+  }),
+
+  defineField({
+    name: "getInvolvedPage",
+    title: "Get Involved page",
+    type: "object",
+    group: "getInvolvedPage",
+    initialValue: pageContentDefaults.getInvolved,
+    fields: [
+      defineField({
+        name: "header",
+        title: "Header",
+        type: "object",
+        fields: [
+          defineField({
+            name: "title",
+            title: "Title",
+            type: "string",
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "description",
+            title: "Description",
+            type: "text",
+            rows: 3,
+            validation: (rule) => rule.required(),
+          }),
+        ],
+      }),
+      defineField({
+        name: "seo",
+        title: "SEO",
+        type: "seo",
+      }),
+    ],
+  }),
+
+  defineField({
+    name: "volunteerPage",
+    title: "Volunteer page",
+    type: "object",
+    group: "volunteerPage",
+    initialValue: pageContentDefaults.volunteer,
+    fields: [
+      defineField({
+        name: "header",
+        title: "Header",
+        type: "object",
+        fields: [
+          defineField({
+            name: "title",
+            title: "Title",
+            type: "string",
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "description",
+            title: "Description",
+            type: "text",
+            rows: 3,
+            validation: (rule) => rule.required(),
+          }),
+        ],
+      }),
+      defineField({
+        name: "seo",
+        title: "SEO",
+        type: "seo",
+      }),
+    ],
+  }),
+
+  defineField({
+    name: "partnerPage",
+    title: "Partner page",
+    type: "object",
+    group: "partnerPage",
+    initialValue: pageContentDefaults.partner,
+    fields: [
+      defineField({
+        name: "header",
+        title: "Header",
+        type: "object",
+        fields: [
+          defineField({
+            name: "title",
+            title: "Title",
+            type: "string",
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "description",
+            title: "Description",
+            type: "text",
+            rows: 3,
+            validation: (rule) => rule.required(),
+          }),
+        ],
+      }),
+      defineField({
+        name: "seo",
+        title: "SEO",
+        type: "seo",
+      }),
+    ],
+  }),
+  defineField({
+    name: "contributePage",
+    title: "Contribute page",
+    type: "object",
+    group: "contributePage",
+    initialValue: pageContentDefaults.contribute,
+    fields: [
+      defineField({
+        name: "header",
+        title: "Header",
+        type: "object",
+        fields: [
+          defineField({
+            name: "title",
+            title: "Title",
+            type: "string",
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "description",
+            title: "Description",
+            type: "text",
+            rows: 3,
+            validation: (rule) => rule.required(),
+          }),
+        ],
+      }),
+      defineField({
+        name: "seo",
+        title: "SEO",
+        type: "seo",
+      }),
+    ],
+  }),
+  defineField({
+    name: "projectsPage",
+    title: "Projects page",
+    type: "object",
+    group: "projectsPage",
+    initialValue: pageContentDefaults.projects,
+    fields: [
+      defineField({
+        name: "header",
+        title: "Header",
+        type: "object",
+        fields: [
+          defineField({
+            name: "title",
+            title: "Title",
+            type: "string",
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "description",
+            title: "Description",
+            type: "text",
+            rows: 3,
+            validation: (rule) => rule.required(),
+          }),
+        ],
+      }),
+      defineField({
+        name: "seo",
+        title: "SEO",
+        type: "seo",
+      }),
+    ],
+  }),
+  defineField({
+    name: "galleryPage",
+    title: "Gallery page",
+    type: "object",
+    group: "galleryPage",
+    initialValue: pageContentDefaults.gallery,
+    fields: [
+      defineField({
+        name: "header",
+        title: "Header",
+        type: "object",
+        fields: [
+          defineField({
+            name: "title",
+            title: "Title",
+            type: "string",
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "description",
+            title: "Description",
+            type: "text",
+            rows: 3,
+            validation: (rule) => rule.required(),
+          }),
+        ],
+      }),
+      defineField({
+        name: "seo",
+        title: "SEO",
+        type: "seo",
+      }),
+    ],
+  }),
+  defineField({
+    name: "contactPage",
+    title: "Contact page",
+    type: "object",
+    group: "contactPage",
+    initialValue: pageContentDefaults.contact,
+    fields: [
+      defineField({
+        name: "header",
+        title: "Header",
+        type: "object",
+        fields: [
+          defineField({
+            name: "title",
+            title: "Title",
+            type: "string",
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "description",
+            title: "Description",
+            type: "text",
+            rows: 3,
+            validation: (rule) => rule.required(),
+          }),
+        ],
+      }),
+      defineField({
+        name: "seo",
+        title: "SEO",
+        type: "seo",
+      }),
     ],
   }),
 ];

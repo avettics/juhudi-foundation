@@ -33,7 +33,7 @@ export const pageContentDefaults = {
       description: "There is a place for you in the work we do.",
       volunteerDescription: "Share your time and skills to make a difference.",
       partnerDescription: "Work with us to create lasting opportunities.",
-      supportDescription: "Help us reach more people and communities.",
+      contributionDescription: "Help us reach more people and communities.",
     },
     contribution: {
       title: "Help create opportunities that last.",
@@ -45,6 +45,7 @@ export const pageContentDefaults = {
         "Juhudi Foundation empowers youth and women through education, mentorship, leadership development, skills training, innovation, and community engagement.",
     },
   },
+
   about: {
     introduction: {
       title: "Built for possibility.",
@@ -119,7 +120,7 @@ export const pageContentDefaults = {
         "United by a shared commitment to people, opportunity, and progress.",
     },
     header: {
-      title: "Uplift, Empower, Inspire",
+      title: "Uplift. Empower. Inspire.",
       description:
         "Creating opportunities for people and communities to thrive.",
     },
@@ -128,14 +129,93 @@ export const pageContentDefaults = {
         "Discover Juhudi Foundation, our purpose, our story, and the people behind our work.",
     },
   },
+
   ourWork: {
     header: {
-      title: "Creating pathways for progress.",
+      title: "Creating opportunity.",
       description: "Empowering people. Strengthening communities.",
     },
     seo: {
       metaDescription:
         "Explore Juhudi Foundation’s work empowering people and strengthening communities.",
+    },
+  },
+
+  getInvolved: {
+    header: {
+      title: "Be part of the change.",
+      description:
+        "Join us in creating opportunities and strengthening communities.",
+    },
+    seo: {
+      metaDescription:
+        "Discover ways to get involved with Juhudi Foundation through volunteering and partnership.",
+    },
+  },
+
+  volunteer: {
+    header: {
+      title: "Give time. Share skills.",
+      description: "Use your time and skills to make a meaningful difference.",
+    },
+    seo: {
+      metaDescription:
+        "Volunteer with Juhudi Foundation and use your time and skills to make a difference.",
+    },
+  },
+
+  partner: {
+    header: {
+      title: "Better together.",
+      description: "Work with Juhudi to create opportunities that last.",
+    },
+    seo: {
+      metaDescription:
+        "Partner with Juhudi Foundation to create lasting opportunities for people and communities.",
+    },
+  },
+
+  contribute: {
+    header: {
+      title: "Make your contribution count.",
+      description: "Help us reach more people and strengthen more communities.",
+    },
+    seo: {
+      metaDescription:
+        "Contribute to Juhudi Foundation and help create opportunities that empower people and strengthen communities.",
+    },
+  },
+
+  projects: {
+    header: {
+      title: "Ideas put into action.",
+      description: "Explore the initiatives bringing our work to life.",
+    },
+    seo: {
+      metaDescription:
+        "Explore Juhudi Foundation projects and the initiatives bringing our work to life.",
+    },
+  },
+
+  gallery: {
+    header: {
+      title: "Our work in pictures.",
+      description: "Moments, people, and communities from across our work.",
+    },
+    seo: {
+      metaDescription:
+        "Explore moments, people, and communities from across Juhudi Foundation's work.",
+    },
+  },
+
+  contact: {
+    header: {
+      title: "Let’s connect.",
+      description: "Get in touch with Juhudi Foundation.",
+    },
+    seo: {
+      metaDescription:
+        "Get in touch with Juhudi Foundation for enquiries, partnerships, volunteering, and other opportunities to connect.",
     },
   },
 };

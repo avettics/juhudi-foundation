@@ -5,9 +5,16 @@ import { pageContentDefaults } from "@/sanity/content/defaults";
 import { sanityFetch } from "@/sanity/lib/live";
 import { SITE_SETTINGS_QUERY } from "@/sanity/queries/site-settings";
 import {
-  HOME_CONTENT_QUERY,
   ABOUT_CONTENT_QUERY,
+  CONTRIBUTE_CONTENT_QUERY,
+  GET_INVOLVED_CONTENT_QUERY,
+  HOME_CONTENT_QUERY,
   OUR_WORK_CONTENT_QUERY,
+  PARTNER_CONTENT_QUERY,
+  VOLUNTEER_CONTENT_QUERY,
+  PROJECTS_CONTENT_QUERY,
+  GALLERY_CONTENT_QUERY,
+  CONTACT_CONTENT_QUERY,
 } from "@/sanity/queries/page-content";
 
 export const getSiteSettings = cache(async () => {
@@ -61,7 +68,7 @@ export const getHomeContent = cache(async () => {
         pageContentDefaults.home.involvement.partnerDescription,
       supportDescription:
         data?.involvement?.supportDescription ??
-        pageContentDefaults.home.involvement.supportDescription,
+        pageContentDefaults.home.involvement.contributionDescription,
     },
     contribution: {
       title:
@@ -158,6 +165,116 @@ export const getOurWorkContent = cache(async () => {
       description:
         data?.header?.description ??
         pageContentDefaults.ourWork.header.description,
+    },
+    seo: data?.seo,
+  };
+});
+
+export const getGetInvolvedContent = cache(async () => {
+  const { data } = await sanityFetch({
+    query: GET_INVOLVED_CONTENT_QUERY,
+  });
+
+  return {
+    header: {
+      title:
+        data?.header?.title ?? pageContentDefaults.getInvolved.header.title,
+      description:
+        data?.header?.description ??
+        pageContentDefaults.getInvolved.header.description,
+    },
+    seo: data?.seo,
+  };
+});
+
+export const getVolunteerContent = cache(async () => {
+  const { data } = await sanityFetch({
+    query: VOLUNTEER_CONTENT_QUERY,
+  });
+
+  return {
+    header: {
+      title: data?.header?.title ?? pageContentDefaults.volunteer.header.title,
+      description:
+        data?.header?.description ??
+        pageContentDefaults.volunteer.header.description,
+    },
+    seo: data?.seo,
+  };
+});
+
+export const getPartnerContent = cache(async () => {
+  const { data } = await sanityFetch({
+    query: PARTNER_CONTENT_QUERY,
+  });
+
+  return {
+    header: {
+      title: data?.header?.title ?? pageContentDefaults.partner.header.title,
+      description:
+        data?.header?.description ??
+        pageContentDefaults.partner.header.description,
+    },
+    seo: data?.seo,
+  };
+});
+
+export const getContributeContent = cache(async () => {
+  const { data } = await sanityFetch({
+    query: CONTRIBUTE_CONTENT_QUERY,
+  });
+
+  return {
+    header: {
+      title: data?.header?.title ?? pageContentDefaults.contribute.header.title,
+      description:
+        data?.header?.description ??
+        pageContentDefaults.contribute.header.description,
+    },
+    seo: data?.seo,
+  };
+});
+export const getProjectsContent = cache(async () => {
+  const { data } = await sanityFetch({
+    query: PROJECTS_CONTENT_QUERY,
+  });
+
+  return {
+    header: {
+      title: data?.header?.title ?? pageContentDefaults.projects.header.title,
+      description:
+        data?.header?.description ??
+        pageContentDefaults.projects.header.description,
+    },
+    seo: data?.seo,
+  };
+});
+export const getGalleryContent = cache(async () => {
+  const { data } = await sanityFetch({
+    query: GALLERY_CONTENT_QUERY,
+  });
+
+  return {
+    header: {
+      title: data?.header?.title ?? pageContentDefaults.gallery.header.title,
+      description:
+        data?.header?.description ??
+        pageContentDefaults.gallery.header.description,
+    },
+    seo: data?.seo,
+  };
+});
+export const getContactContent = cache(async () => {
+  const { data } = await sanityFetch({
+    query: CONTACT_CONTENT_QUERY,
+  });
+
+  return {
+    header: {
+      title: data?.header?.title ?? pageContentDefaults.contact.header.title,
+      description:
+        data?.header?.description ??
+        pageContentDefaults.contact.header.description,
     },
     seo: data?.seo,
   };

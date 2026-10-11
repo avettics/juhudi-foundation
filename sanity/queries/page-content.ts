@@ -31,3 +31,51 @@ export const OUR_WORK_CONTENT_QUERY = defineQuery(`
     seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
   }
 `);
+
+export const GET_INVOLVED_CONTENT_QUERY = defineQuery(`
+  *[_type == "siteSettings" && _id == "siteSettings"][0].getInvolvedPage {
+    header { title, description },
+    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
+  }
+`);
+
+export const VOLUNTEER_CONTENT_QUERY = defineQuery(`
+  *[_type == "siteSettings" && _id == "siteSettings"][0].volunteerPage {
+    header { title, description },
+    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
+  }
+`);
+
+export const PARTNER_CONTENT_QUERY = defineQuery(`
+  *[_type == "siteSettings" && _id == "siteSettings"][0].partnerPage {
+    header { title, description },
+    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
+  }
+`);
+
+export const CONTRIBUTE_CONTENT_QUERY = defineQuery(`
+  *[_type == "siteSettings" && _id == "siteSettings"][0].contributePage {
+    header { title, description },
+    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
+  }
+`);
+export const PROJECTS_CONTENT_QUERY = defineQuery(`
+  *[_type == "siteSettings" && _id == "siteSettings"][0].projectsPage {
+    header { title, description },
+    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
+  }
+`);
+
+export const GALLERY_CONTENT_QUERY = defineQuery(`
+  *[_type == "siteSettings" && _id == "siteSettings"][0].galleryPage {
+    header { title, description },
+    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
+  }
+`);
+
+export const CONTACT_CONTENT_QUERY = defineQuery(`
+  *[_type == "siteSettings" && _id == "siteSettings"][0].contactPage {
+    header { title, description },
+    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
+  }
+`);
