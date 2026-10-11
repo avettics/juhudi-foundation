@@ -52,7 +52,7 @@ export function MobileNav() {
                 render={
                   <Link
                     href={item.href}
-                    className="flex min-h-12 items-center border-b border-border/70 px-1 py-3 text-base font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+                    className="flex min-h-12 items-center border-b border-border/70 px-2 py-3 text-base font-medium text-foreground transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
                   />
                 }
               >

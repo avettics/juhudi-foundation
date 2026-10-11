@@ -1,20 +1,18 @@
+import { getHomeContent } from "@/sanity/lib/page-content";
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/motion/reveal";
 import { sanityFetch } from "@/sanity/lib/live";
-import { IMPACT_METRICS_QUERY } from "@/sanity/queries/impact-metrics";
+import { FEATURED_IMPACT_METRICS_QUERY } from "@/sanity/queries/impact-metrics";
 
 export async function Impact() {
-  const { data: metrics } = await sanityFetch({
-    query: IMPACT_METRICS_QUERY,
-  });
+  const [{ impact: copy }, { data: metrics }] = await Promise.all([
+    getHomeContent(),
+    sanityFetch({ query: FEATURED_IMPACT_METRICS_QUERY }),
+  ]);
 
-  const featuredMetrics =
-    metrics
-      ?.filter(
-        (metric) =>
-          metric.featured && metric.title && typeof metric.value === "number",
-      )
-      .slice(0, 4) ?? [];
+  const featuredMetrics = metrics.filter((metric) =>
+    Number.isFinite(metric.value),
+  );
 
   if (!featuredMetrics.length) {
     return null;
@@ -36,7 +34,7 @@ export async function Impact() {
               id="impact-heading"
               className="mx-auto mt-5 max-w-3xl font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl xl:text-[3.5rem]"
             >
-              Progress that matters.
+              {copy.title}
             </h2>
           </div>
         </Reveal>
@@ -61,7 +59,7 @@ export async function Impact() {
               >
                 <p className="font-heading text-4xl font-semibold leading-none tracking-[-0.04em] text-primary tabular-nums sm:text-5xl lg:text-[3.25rem]">
                   {metric.prefix}
-                  {metric.value.toLocaleString()}
+                  {metric.value.toLocaleString("en")}
                   {metric.suffix}
                 </p>
 

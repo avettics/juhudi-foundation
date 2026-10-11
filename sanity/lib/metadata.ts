@@ -9,6 +9,7 @@ type SeoImage = NonNullable<SeoData>["socialImage"];
 
 type BuildMetadataOptions = {
   seo?: SeoData | null;
+  defaultSeo?: SeoData | null;
   fallbackTitle: string;
   fallbackDescription?: string | null;
 };
@@ -22,6 +23,7 @@ type SocialImage = {
 
 export function buildMetadata({
   seo,
+  defaultSeo,
   fallbackTitle,
   fallbackDescription,
 }: BuildMetadataOptions): Metadata {
@@ -30,18 +32,21 @@ export function buildMetadata({
   const description =
     seo?.metaDescription?.trim() || fallbackDescription?.trim() || undefined;
 
-  const socialImage = getSocialImage(seo?.socialImage);
+  const socialImage = getSocialImage(
+    seo?.socialImage ?? defaultSeo?.socialImage,
+  );
 
   return {
     title,
     description,
 
-    robots: seo?.noIndex
-      ? {
-          index: false,
-          follow: false,
-        }
-      : undefined,
+    robots:
+      seo?.noIndex || defaultSeo?.noIndex
+        ? {
+            index: false,
+            follow: false,
+          }
+        : undefined,
 
     openGraph: {
       title,

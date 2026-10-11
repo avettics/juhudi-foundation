@@ -1,3 +1,4 @@
+import { getHomeContent } from "@/sanity/lib/page-content";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
 
@@ -6,7 +7,8 @@ import { Reveal } from "@/components/motion/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export function ContributionCTA() {
+export async function ContributionCTA() {
+  const { contribution: copy } = await getHomeContent();
   return (
     <section
       className="bg-background py-16 sm:py-20 lg:py-24 xl:py-28"
@@ -23,12 +25,11 @@ export function ContributionCTA() {
               id="contribution-heading"
               className="mx-auto mt-5 max-w-3xl font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl xl:text-[3.5rem]"
             >
-              Help create opportunities that last.
+              {copy.title}
             </h2>
 
             <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-pretty text-muted-foreground sm:text-lg sm:leading-8">
-              Your contribution helps us reach more people and strengthen more
-              communities.
+              {copy.description}
             </p>
 
             <Link

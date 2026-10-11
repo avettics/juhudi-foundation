@@ -1,31 +1,33 @@
+import { getHomeContent } from "@/sanity/lib/page-content";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
 
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/motion/reveal";
 
-const involvementOptions = [
-  {
-    title: "Volunteer with us",
-    description: "Share your time and skills to make a difference.",
-    href: "/get-involved/volunteer",
-    action: "Volunteer with us",
-  },
-  {
-    title: "Partner with us",
-    description: "Work with us to create lasting opportunities.",
-    href: "/get-involved/partner",
-    action: "Partner with us",
-  },
-  {
-    title: "Support our work",
-    description: "Help us reach more people and communities.",
-    href: "/get-involved/support",
-    action: "Ways to support",
-  },
-] as const;
+export async function GetInvolved() {
+  const { involvement: copy } = await getHomeContent();
+  const involvementOptions = [
+    {
+      title: "Volunteer with us",
+      description: copy.volunteerDescription,
+      href: "/get-involved/volunteer",
+      action: "Volunteer with us",
+    },
+    {
+      title: "Partner with us",
+      description: copy.partnerDescription,
+      href: "/get-involved/partner",
+      action: "Partner with us",
+    },
+    {
+      title: "Make a contribution",
+      description: copy.supportDescription,
+      href: "/contribute",
+      action: "Contribute",
+    },
+  ] as const;
 
-export function GetInvolved() {
   return (
     <section
       className="bg-muted/40 py-16 sm:py-20 lg:py-24 xl:py-28"
@@ -42,11 +44,11 @@ export function GetInvolved() {
               id="get-involved-heading"
               className="mx-auto mt-5 max-w-3xl font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl xl:text-[3.5rem]"
             >
-              Be part of something meaningful.
+              {copy.title}
             </h2>
 
             <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-              There is a place for you in the work we do.
+              {copy.description}
             </p>
           </div>
         </Reveal>
@@ -55,7 +57,7 @@ export function GetInvolved() {
           <div className="grid lg:grid-cols-3">
             {involvementOptions.map((option, index) => (
               <Reveal
-                key={option.title}
+                key={option.href}
                 delay={Math.min(index * 0.06, 0.12)}
                 className="h-full min-w-0"
               >

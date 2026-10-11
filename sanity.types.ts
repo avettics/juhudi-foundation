@@ -545,6 +545,156 @@ export type SiteSettings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  homePage?: {
+    hero?: {
+      title: string;
+      description: string;
+      imageAlt: string;
+      image?: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        _type: "image";
+      };
+    };
+    introduction?: {
+      title: string;
+      description: string;
+    };
+    impact?: {
+      title: string;
+    };
+    work?: {
+      title: string;
+      description: string;
+    };
+    projects?: {
+      title: string;
+      description: string;
+    };
+    involvement?: {
+      title: string;
+      description: string;
+      volunteerDescription: string;
+      partnerDescription: string;
+      contributionDescription: string;
+    };
+    contribution?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  aboutPage?: {
+    introduction?: {
+      title: string;
+      summary: string;
+      description: string;
+      imageAlt: string;
+      image?: {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        _type: "image";
+      };
+    };
+    purpose?: {
+      title: string;
+      description: string;
+      missionTitle: string;
+      missionDescription: string;
+      visionTitle: string;
+      visionDescription: string;
+    };
+    story?: {
+      title: string;
+      description: string;
+      introduction: string;
+      paragraph1: string;
+      paragraph2: string;
+      paragraph3: string;
+      closing: string;
+    };
+    principles?: {
+      title: string;
+      description: string;
+      items: Array<{
+        title: string;
+        description: string;
+        _type: "principle";
+        _key: string;
+      }>;
+    };
+    team?: {
+      title: string;
+      description: string;
+    };
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  ourWorkPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  getInvolvedPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  volunteerPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  partnerPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  contributePage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  projectsPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  galleryPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
+  contactPage?: {
+    header?: {
+      title: string;
+      description: string;
+    };
+    seo?: Seo;
+  };
   siteTitle: string;
   tagline: string;
   siteDescription: string;
@@ -1077,6 +1227,17 @@ export type IMPACT_METRICS_QUERY_RESULT = Array<{
   order: number;
 }>;
 
+// Source: sanity/queries/impact-metrics.ts
+// Variable: FEATURED_IMPACT_METRICS_QUERY
+// Query: *[_type == "impactMetric" && featured == true && title != "" && defined(title) && defined(value)]    | order(order asc, title asc)[0...4] {      _id, title, value, prefix, suffix    }
+export type FEATURED_IMPACT_METRICS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  value: number;
+  prefix: string | null;
+  suffix: string | null;
+}>;
+
 // Source: sanity/queries/opportunities.ts
 // Variable: OPPORTUNITIES_QUERY
 // Query: *[_type == "opportunity"] | order(deadline asc, title asc) {    _id,    title,    "slug": slug.current,    opportunityType,    shortDescription,    mode,    location,    deadline,    programme-> {      _id,      title,      "slug": slug.current    },    project-> {      _id,      title,      "slug": slug.current    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured  }
@@ -1260,6 +1421,291 @@ export type OPPORTUNITY_BY_SLUG_QUERY_RESULT = {
   } | null;
 } | null;
 
+// Source: sanity/queries/page-content.ts
+// Variable: HOME_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].homePage {    hero { title, description, imageAlt, image { asset, alt, crop, hotspot } },    introduction { title, description },    impact { title },    work { title, description },    projects { title, description },    involvement { title, description, volunteerDescription, partnerDescription, supportDescription },    contribution { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type HOME_CONTENT_QUERY_RESULT = {
+  hero: {
+    title: string;
+    description: string;
+    imageAlt: string;
+    image: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+  introduction: {
+    title: string;
+    description: string;
+  } | null;
+  impact: {
+    title: string;
+  } | null;
+  work: {
+    title: string;
+    description: string;
+  } | null;
+  projects: {
+    title: string;
+    description: string;
+  } | null;
+  involvement: {
+    title: string;
+    description: string;
+    volunteerDescription: string;
+    partnerDescription: string;
+    supportDescription: null;
+  } | null;
+  contribution: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: ABOUT_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].aboutPage {    introduction { title, summary, description, imageAlt, image { asset, alt, crop, hotspot } },    purpose { title, description, missionTitle, missionDescription, visionTitle, visionDescription },    story { title, description, introduction, paragraph1, paragraph2, paragraph3, closing },    principles { title, description, items[] { _key, title, description } },    team { title, description },    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type ABOUT_CONTENT_QUERY_RESULT = {
+  introduction: {
+    title: string;
+    summary: string;
+    description: string;
+    imageAlt: string;
+    image: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+  purpose: {
+    title: string;
+    description: string;
+    missionTitle: string;
+    missionDescription: string;
+    visionTitle: string;
+    visionDescription: string;
+  } | null;
+  story: {
+    title: string;
+    description: string;
+    introduction: string;
+    paragraph1: string;
+    paragraph2: string;
+    paragraph3: string;
+    closing: string;
+  } | null;
+  principles: {
+    title: string;
+    description: string;
+    items: Array<{
+      _key: string;
+      title: string;
+      description: string;
+    }>;
+  } | null;
+  team: {
+    title: string;
+    description: string;
+  } | null;
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: OUR_WORK_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].ourWorkPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type OUR_WORK_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: GET_INVOLVED_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].getInvolvedPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type GET_INVOLVED_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: VOLUNTEER_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].volunteerPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type VOLUNTEER_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: PARTNER_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].partnerPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type PARTNER_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: CONTRIBUTE_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].contributePage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type CONTRIBUTE_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: PROJECTS_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].projectsPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type PROJECTS_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: GALLERY_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].galleryPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type GALLERY_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries/page-content.ts
+// Variable: CONTACT_CONTENT_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].contactPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+export type CONTACT_CONTENT_QUERY_RESULT = {
+  header: {
+    title: string;
+    description: string;
+  } | null;
+  seo: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    noIndex: boolean | null;
+    socialImage: {
+      asset: SanityImageAssetReference | null;
+      alt: string;
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+    } | null;
+  } | null;
+} | null;
+
 // Source: sanity/queries/partners.ts
 // Variable: PARTNERS_QUERY
 // Query: *[_type == "partner"] | order(order asc, name asc) {    _id,    name,    partnerType,    description,    websiteUrl,    programmes[]-> {      _id,      title,      "slug": slug.current    },    projects[]-> {      _id,      title,      "slug": slug.current,      status    },    logo {      asset,      alt,      hotspot,      crop    },    featured,    order  }
@@ -1407,6 +1853,16 @@ export type PROGRAMME_BY_SLUG_QUERY_RESULT = {
     noIndex: boolean | null;
   } | null;
 } | null;
+
+// Source: sanity/queries/programmes.ts
+// Variable: PROGRAMME_CARDS_QUERY
+// Query: *[_type == "programme" && defined(slug.current) && slug.current != "" && defined(title) && title != ""]    | order(order asc, title asc) {      _id, title, "slug": slug.current, shortDescription    }
+export type PROGRAMME_CARDS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+}>;
 
 // Source: sanity/queries/projects.ts
 // Variable: PROJECTS_QUERY
@@ -1866,6 +2322,21 @@ export type TEAM_MEMBERS_QUERY_RESULT = Array<{
   order: number;
 }>;
 
+// Source: sanity/queries/team-members.ts
+// Variable: TEAM_CARDS_QUERY
+// Query: *[_type == "teamMember" && defined(name) && name != "" && defined(role) && role != "" && defined(photo.asset._ref)]    | order(group asc, order asc, name asc) {      _id, name, role, photo { asset, alt, hotspot, crop }    }
+export type TEAM_CARDS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  role: string;
+  photo: {
+    asset: SanityImageAssetReference | null;
+    alt: string;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  };
+}>;
+
 // Source: sanity/queries/testimonials.ts
 // Variable: TESTIMONIALS_QUERY
 // Query: *[_type == "testimonial"] | order(order asc, name asc) {    _id,    quote,    name,    testimonialType,    role,    organisation,    programme-> {      _id,      title,      "slug": slug.current    },    project-> {      _id,      title,      "slug": slug.current,      status    },    photo {      asset,      alt,      hotspot,      crop    },    featured,    order  }
@@ -1909,11 +2380,23 @@ declare module "@sanity/client" {
     '\n  *[_type == "event" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n\n    content[] {\n      ...,\n\n      markDefs[] {\n        ...,\n\n        _type == "internalLink" => {\n          ...,\n          reference-> {\n            _type,\n            "slug": slug.current\n          }\n        }\n      },\n\n      _type == "image" => {\n        asset,\n        alt,\n        caption,\n        hotspot,\n        crop\n      }\n    },\n\n    startAt,\n    endAt,\n    format,\n    venue,\n    location,\n    onlineUrl,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription,\n      status\n    },\n\n    participationLink {\n      label,\n      linkType,\n      internalLink-> {\n        _type,\n        "slug": slug.current\n      },\n      url,\n      openInNewTab\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        crop,\n        hotspot,\n        alt\n      },\n      noIndex\n    }\n  }\n': EVENT_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "faq"] | order(category asc, order asc, question asc) {\n    _id,\n    question,\n    answer,\n    category,\n    featured,\n    order\n  }\n': FAQS_QUERY_RESULT;
     '\n  *[_type == "impactMetric"] | order(order asc, title asc) {\n    _id,\n    title,\n    value,\n    prefix,\n    suffix,\n    description,\n    asOfDate,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      status\n    },\n\n    featured,\n    order\n  }\n': IMPACT_METRICS_QUERY_RESULT;
+    '\n  *[_type == "impactMetric" && featured == true && title != "" && defined(title) && defined(value)]\n    | order(order asc, title asc)[0...4] {\n      _id, title, value, prefix, suffix\n    }\n': FEATURED_IMPACT_METRICS_QUERY_RESULT;
     '\n  *[_type == "opportunity"] | order(deadline asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    opportunityType,\n    shortDescription,\n    mode,\n    location,\n    deadline,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': OPPORTUNITIES_QUERY_RESULT;
     '\n  *[_type == "opportunity" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    opportunityType,\n    shortDescription,\n\n    content[] {\n      ...,\n\n      markDefs[] {\n        ...,\n\n        _type == "internalLink" => {\n          ...,\n          reference-> {\n            _type,\n            "slug": slug.current\n          }\n        }\n      },\n\n      _type == "image" => {\n        asset,\n        alt,\n        caption,\n        hotspot,\n        crop\n      }\n    },\n\n    mode,\n    location,\n    deadline,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription,\n      status\n    },\n\n    applicationLink {\n      label,\n      linkType,\n      internalLink-> {\n        _type,\n        "slug": slug.current\n      },\n      url,\n      openInNewTab\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        crop,\n        hotspot,\n        alt\n      },\n      noIndex\n    }\n  }\n': OPPORTUNITY_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].homePage {\n    hero { title, description, imageAlt, image { asset, alt, crop, hotspot } },\n    introduction { title, description },\n    impact { title },\n    work { title, description },\n    projects { title, description },\n    involvement { title, description, volunteerDescription, partnerDescription, supportDescription },\n    contribution { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': HOME_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].aboutPage {\n    introduction { title, summary, description, imageAlt, image { asset, alt, crop, hotspot } },\n    purpose { title, description, missionTitle, missionDescription, visionTitle, visionDescription },\n    story { title, description, introduction, paragraph1, paragraph2, paragraph3, closing },\n    principles { title, description, items[] { _key, title, description } },\n    team { title, description },\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': ABOUT_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].ourWorkPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': OUR_WORK_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].getInvolvedPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': GET_INVOLVED_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].volunteerPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': VOLUNTEER_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].partnerPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': PARTNER_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].contributePage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': CONTRIBUTE_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].projectsPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': PROJECTS_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].galleryPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': GALLERY_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].contactPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': CONTACT_CONTENT_QUERY_RESULT;
     '\n  *[_type == "partner"] | order(order asc, name asc) {\n    _id,\n    name,\n    partnerType,\n    description,\n    websiteUrl,\n\n    programmes[]-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    projects[]-> {\n      _id,\n      title,\n      "slug": slug.current,\n      status\n    },\n\n    logo {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order\n  }\n': PARTNERS_QUERY_RESULT;
     '\n  *[_type == "programme"] | order(order asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    focusAreas,\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n    featured,\n    order\n  }\n': PROGRAMMES_QUERY_RESULT;
     '\n  *[_type == "programme" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n\n    content[] {\n      ...,\n\n      markDefs[] {\n        ...,\n\n        _type == "internalLink" => {\n          ...,\n          reference-> {\n            _type,\n            "slug": slug.current\n          }\n        }\n      },\n\n      _type == "image" => {\n        asset,\n        alt,\n        caption,\n        hotspot,\n        crop\n      }\n    },\n\n    focusAreas,\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        crop,\n        hotspot,\n        alt\n      },\n      noIndex\n    }\n  }\n': PROGRAMME_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "programme" && defined(slug.current) && slug.current != "" && defined(title) && title != ""]\n    | order(order asc, title asc) {\n      _id, title, "slug": slug.current, shortDescription\n    }\n': PROGRAMME_CARDS_QUERY_RESULT;
     '\n  *[_type == "project"] | order(startDate desc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    status,\n    startDate,\n    endDate,\n    location,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': PROJECTS_QUERY_RESULT;
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n\n    content[] {\n      ...,\n\n      markDefs[] {\n        ...,\n\n        _type == "internalLink" => {\n          ...,\n          reference-> {\n            _type,\n            "slug": slug.current\n          }\n        }\n      },\n\n      _type == "image" => {\n        asset,\n        alt,\n        caption,\n        hotspot,\n        crop\n      }\n    },\n\n    status,\n    startDate,\n    endDate,\n    location,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        crop,\n        hotspot,\n        alt\n      },\n      noIndex\n    }\n  }\n': PROJECT_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "project" && featured == true &&\n    defined(slug.current) && slug.current != "" &&\n    defined(title) && title != "" && defined(featuredImage.asset._ref)]\n    | order(startDate desc, title asc)[0...3] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    location,\n    programme-> { title },\n    featuredImage { asset, alt, hotspot, crop }\n  }\n': FEATURED_PROJECTS_QUERY_RESULT;
@@ -1922,6 +2405,7 @@ declare module "@sanity/client" {
     '\n  *[_type == "story"] | order(publishedAt desc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    storyType,\n    excerpt,\n    publishedAt,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    campaign-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': STORIES_QUERY_RESULT;
     '\n  *[_type == "story" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    storyType,\n    excerpt,\n\n    content[] {\n      ...,\n\n      markDefs[] {\n        ...,\n\n        _type == "internalLink" => {\n          ...,\n          reference-> {\n            _type,\n            "slug": slug.current\n          }\n        }\n      },\n\n      _type == "image" => {\n        asset,\n        alt,\n        caption,\n        hotspot,\n        crop\n      }\n    },\n\n    publishedAt,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription,\n      status\n    },\n\n    campaign-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription,\n      status\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        crop,\n        hotspot,\n        alt\n      },\n      noIndex\n    }\n  }\n': STORY_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "teamMember"] | order(group asc, order asc, name asc) {\n    _id,\n    name,\n    role,\n    group,\n    bio,\n\n    photo {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    linkedinUrl,\n    order\n  }\n': TEAM_MEMBERS_QUERY_RESULT;
+    '\n  *[_type == "teamMember" && defined(name) && name != "" && defined(role) && role != "" && defined(photo.asset._ref)]\n    | order(group asc, order asc, name asc) {\n      _id, name, role, photo { asset, alt, hotspot, crop }\n    }\n': TEAM_CARDS_QUERY_RESULT;
     '\n  *[_type == "testimonial"] | order(order asc, name asc) {\n    _id,\n    quote,\n    name,\n    testimonialType,\n    role,\n    organisation,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      status\n    },\n\n    photo {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order\n  }\n': TESTIMONIALS_QUERY_RESULT;
   }
 }

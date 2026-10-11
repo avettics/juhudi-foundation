@@ -37,13 +37,13 @@ export function Reveal({
   return (
     <motion.div
       {...props}
-      className={cn(className)}
+      className={cn("min-w-0", className)}
       initial={false}
       animate={animate ? { opacity: 0, y: distance } : { opacity: 1, y: 0 }}
       whileInView={animate ? { opacity: 1, y: 0 } : undefined}
       viewport={{
         once: true,
-        amount: 0.2,
+        amount: "some",
       }}
       transition={
         !animate

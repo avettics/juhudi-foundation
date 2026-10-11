@@ -2,12 +2,13 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 
 import { Container } from "@/components/common/container";
 import { resolveExternalHref } from "@/sanity/lib/links";
 import { sanityFetch } from "@/sanity/lib/live";
 import { CONTACT_INFORMATION_QUERY } from "@/sanity/queries/contact-information";
-import { SITE_SETTINGS_QUERY } from "@/sanity/queries/site-settings";
+import { getSiteSettings } from "@/sanity/lib/page-content";
 
 const exploreLinks = [
   { label: "About", href: "/about" },
@@ -20,7 +21,7 @@ const exploreLinks = [
 const involvementLinks = [
   { label: "Volunteer with us", href: "/get-involved/volunteer" },
   { label: "Partner with us", href: "/get-involved/partner" },
-  { label: "Support us", href: "/get-involved/support" },
+  { label: "Contribute", href: "/contribute" },
 ] as const;
 
 const footerLinkClassName =
@@ -30,8 +31,8 @@ const contactLinkClassName =
   "min-w-0 rounded-sm text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60";
 
 export async function SiteFooter() {
-  const [{ data: settings }, { data: contact }] = await Promise.all([
-    sanityFetch({ query: SITE_SETTINGS_QUERY }),
+  const [settings, { data: contact }] = await Promise.all([
+    getSiteSettings(),
     sanityFetch({ query: CONTACT_INFORMATION_QUERY }),
   ]);
 
@@ -54,7 +55,7 @@ export async function SiteFooter() {
   return (
     <footer className="wrap-anywhere bg-black text-white">
       <Container>
-        <div className="grid gap-x-8 gap-y-10 py-12 sm:py-14 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.25fr] lg:gap-x-10 lg:py-16">
+        <div className="grid grid-cols-1 *:min-w-0 gap-x-8 gap-y-10 py-12 sm:py-14 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.25fr] lg:gap-x-10 lg:py-16">
           <div className="max-w-sm">
             <Link
               href="/"
@@ -139,6 +140,24 @@ export async function SiteFooter() {
                     className={contactLinkClassName}
                   >
                     {contact.primaryPhone}
+                  </a>
+                </div>
+              ) : null}
+
+              {contact?.whatsappNumber ? (
+                <div className="flex min-w-0 items-start gap-2.5">
+                  <FaWhatsapp
+                    aria-hidden="true"
+                    className="mt-1 size-4 shrink-0 text-white/50"
+                  />
+                  <a
+                    href={`https://wa.me/${toWhatsAppHref(contact.whatsappNumber)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={contactLinkClassName}
+                    aria-label={`Chat with Juhudi Foundation on WhatsApp at ${contact.whatsappNumber}`}
+                  >
+                    {contact.whatsappNumber}
                   </a>
                 </div>
               ) : null}
@@ -229,4 +248,8 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
 
 function toTelephoneHref(phone: string) {
   return phone.replace(/[^\d+]/g, "");
+}
+
+function toWhatsAppHref(phone: string) {
+  return phone.replace(/\D/g, "");
 }

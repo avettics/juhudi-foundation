@@ -1,3 +1,4 @@
+import { getHomeContent } from "@/sanity/lib/page-content";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon, MapPinIcon } from "lucide-react";
@@ -10,9 +11,10 @@ import { urlFor } from "@/sanity/lib/image";
 import { FEATURED_PROJECTS_QUERY } from "@/sanity/queries/projects";
 
 export async function FeaturedProjects() {
-  const { data: featuredProjects } = await sanityFetch({
-    query: FEATURED_PROJECTS_QUERY,
-  });
+  const [{ projects: copy }, { data: featuredProjects }] = await Promise.all([
+    getHomeContent(),
+    sanityFetch({ query: FEATURED_PROJECTS_QUERY }),
+  ]);
 
   if (!featuredProjects.length) {
     return null;
@@ -35,7 +37,7 @@ export async function FeaturedProjects() {
                 id="featured-projects-heading"
                 className="mt-5 font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl xl:text-[3.5rem]"
               >
-                Turning ideas into action.
+                {copy.title}
               </h2>
             </div>
           </Reveal>
@@ -43,8 +45,7 @@ export async function FeaturedProjects() {
           <Reveal delay={0.08}>
             <div className="max-w-2xl lg:pt-1">
               <p className="text-lg leading-8 text-foreground sm:text-xl sm:leading-9">
-                Explore initiatives that turn our areas of work into practical
-                action alongside people and communities.
+                {copy.description}
               </p>
 
               <Link
@@ -89,7 +90,7 @@ export async function FeaturedProjects() {
                         }
                         fill
                         sizes="(min-width: 1280px) 400px, (min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
-                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        className="object-cover transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.03]"
                       />
                     </div>
 

@@ -10,7 +10,7 @@ import { MobileNav } from "./mobile-nav";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
       <Container>
         <div className="flex h-16 min-w-0 items-center justify-between gap-4 xl:grid xl:grid-cols-[1fr_auto_1fr]">
           <Link
@@ -23,7 +23,7 @@ export function SiteHeader() {
               alt="Juhudi Foundation"
               width={2993}
               height={1415}
-              priority
+              loading="eager"
               className="h-10 w-auto sm:h-11"
             />
           </Link>

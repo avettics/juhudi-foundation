@@ -1,31 +1,10 @@
+import { getAboutContent } from "@/sanity/lib/page-content";
 import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/motion/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 
-const principles = [
-  {
-    title: "People first",
-    description:
-      "We put people, their dignity, and their potential at the heart of our work.",
-  },
-  {
-    title: "Opportunity",
-    description:
-      "We create pathways for people to learn, grow, participate, and lead.",
-  },
-  {
-    title: "Self-reliance",
-    description:
-      "We strengthen skills and confidence that help people shape their own futures.",
-  },
-  {
-    title: "Lasting progress",
-    description:
-      "We pursue change that strengthens people and communities beyond the present.",
-  },
-] as const;
-
-export function GuidingPrinciples() {
+export async function GuidingPrinciples() {
+  const { principles: copy } = await getAboutContent();
   return (
     <section
       className="bg-muted/40 py-16 sm:py-20 lg:py-24"
@@ -42,20 +21,19 @@ export function GuidingPrinciples() {
               id="guiding-principles-heading"
               className="mx-auto mt-5 max-w-3xl font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl"
             >
-              Principles behind how we work.
+              {copy.title}
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-pretty text-muted-foreground sm:text-lg sm:leading-8">
-              The values we carry into every relationship, initiative, and
-              community we serve.
+              {copy.description}
             </p>
           </div>
         </Reveal>
 
         <div className="mt-12 grid items-stretch gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-5">
-          {principles.map((principle, index) => (
+          {copy.items.map((principle, index) => (
             <Reveal
-              key={principle.title}
+              key={principle._key}
               delay={Math.min(index * 0.05, 0.15)}
               className="h-full min-w-0"
             >

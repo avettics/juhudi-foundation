@@ -1,3 +1,4 @@
+import { getHomeContent } from "@/sanity/lib/page-content";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
 
@@ -5,12 +6,13 @@ import { Container } from "@/components/common/container";
 import { Reveal } from "@/components/motion/reveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { sanityFetch } from "@/sanity/lib/live";
-import { PROGRAMMES_QUERY } from "@/sanity/queries/programmes";
+import { PROGRAMME_CARDS_QUERY } from "@/sanity/queries/programmes";
 
 export async function OurWork() {
-  const { data: programmes } = await sanityFetch({
-    query: PROGRAMMES_QUERY,
-  });
+  const [{ work: copy }, { data: programmes }] = await Promise.all([
+    getHomeContent(),
+    sanityFetch({ query: PROGRAMME_CARDS_QUERY }),
+  ]);
 
   const visibleProgrammes =
     programmes?.filter((programme) => programme.slug && programme.title) ?? [];
@@ -35,12 +37,11 @@ export async function OurWork() {
               id="our-work-heading"
               className="mx-auto mt-5 max-w-3xl font-heading text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-5xl xl:text-[3.5rem]"
             >
-              Creating opportunities that matter.
+              {copy.title}
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-              Six areas of work guide how we empower people, strengthen
-              communities, and create opportunities for lasting progress.
+              {copy.description}
             </p>
 
             <Link
