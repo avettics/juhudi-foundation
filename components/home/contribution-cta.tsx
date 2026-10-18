@@ -39,7 +39,7 @@ export async function ContributionCTA() {
                 "group mt-8 min-h-12 px-6 font-semibold",
               )}
             >
-              Contribute.
+              Contribute
               <ArrowRightIcon
                 aria-hidden="true"
                 className="size-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
