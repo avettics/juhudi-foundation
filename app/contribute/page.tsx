@@ -7,6 +7,7 @@ import {
   getSiteSettings,
 } from "@/sanity/lib/page-content";
 import { buildMetadata } from "@/sanity/lib/metadata";
+import ComingSoonPage from "@/components/contribute/coming-soon";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [content, settings] = await Promise.all([
@@ -26,10 +27,9 @@ export default async function ContributePage() {
   const { header } = await getContributeContent();
 
   return (
-    <PageHeader
-      eyebrow="CONTRIBUTE"
-      title={header.title}
-      description={header.description}
-    />
+    <>
+      <PageHeader title={header.title} description={header.description} />
+      <ComingSoonPage />
+    </>
   );
 }

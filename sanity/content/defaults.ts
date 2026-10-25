@@ -135,6 +135,15 @@ export const pageContentDefaults = {
       title: "Creating opportunity.",
       description: "Empowering people. Strengthening communities.",
     },
+
+    approach: {
+      title: "Progress starts with people.",
+      description:
+        "We work alongside people and communities to understand what matters, build on existing potential, and create practical opportunities for growth.",
+      supportingText:
+        "Our approach connects learning, skills, leadership, well-being, innovation, and community action - helping people build the confidence and capacity to shape their own futures.",
+    },
+
     seo: {
       metaDescription:
         "Explore Juhudi Foundation’s work empowering people and strengthening communities.",
@@ -147,9 +156,15 @@ export const pageContentDefaults = {
       description:
         "Join us in creating opportunities and strengthening communities.",
     },
+    ways: {
+      title: "Choose how you want to take part.",
+      volunteerDescription:
+        "Share your time and skills to make a meaningful difference.",
+      partnerDescription: "Work with us to create opportunities that last.",
+    },
     seo: {
       metaDescription:
-        "Discover ways to get involved with Juhudi Foundation through volunteering and partnership.",
+        "Get involved with Juhudi Foundation through volunteering, partnership, and meaningful participation.",
     },
   },
 

@@ -22,11 +22,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PartnerPage() {
   const { header } = await getPartnerContent();
 
-  return (
-    <PageHeader
-      eyebrow="PARTNER WITH US"
-      title={header.title}
-      description={header.description}
-    />
-  );
+  return <PageHeader title={header.title} description={header.description} />;
 }

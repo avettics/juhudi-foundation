@@ -22,11 +22,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function GalleryPage() {
   const { header } = await getGalleryContent();
 
-  return (
-    <PageHeader
-      eyebrow="GALLERY"
-      title={header.title}
-      description={header.description}
-    />
-  );
+  return <PageHeader title={header.title} description={header.description} />;
 }

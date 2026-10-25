@@ -11,13 +11,14 @@ export const mainNavigation = [
     label: "Projects",
     href: "/projects",
   },
-  {
-    label: "Gallery",
-    href: "/gallery",
-  },
+
   {
     label: "Get Involved",
     href: "/get-involved",
+  },
+  {
+    label: "Gallery",
+    href: "/gallery",
   },
   {
     label: "Contact",

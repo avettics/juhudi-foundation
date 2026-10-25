@@ -1,21 +1,19 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
+import { ArrowUpRightIcon, MailIcon, PhoneIcon } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 
 import { Container } from "@/components/common/container";
 import { resolveExternalHref } from "@/sanity/lib/links";
 import { sanityFetch } from "@/sanity/lib/live";
-import { CONTACT_INFORMATION_QUERY } from "@/sanity/queries/contact-information";
 import { getSiteSettings } from "@/sanity/lib/page-content";
+import { CONTACT_INFORMATION_QUERY } from "@/sanity/queries/contact-information";
 
 const exploreLinks = [
   { label: "About", href: "/about" },
   { label: "Our Work", href: "/our-work" },
   { label: "Projects", href: "/projects" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Contact", href: "/contact" },
 ] as const;
 
 const involvementLinks = [
@@ -28,7 +26,10 @@ const footerLinkClassName =
   "rounded-sm text-sm leading-6 text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60";
 
 const contactLinkClassName =
-  "min-w-0 rounded-sm text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60";
+  "min-w-0 rounded-sm text-sm leading-6 text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60";
+
+const externalLinkClassName =
+  "group inline-flex items-center gap-1 rounded-sm text-sm leading-6 text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60";
 
 export async function SiteFooter() {
   const [settings, { data: contact }] = await Promise.all([
@@ -39,23 +40,16 @@ export async function SiteFooter() {
   const description =
     settings?.footerDescription ?? settings?.siteDescription ?? null;
 
-  const location = [
-    contact?.addressLine,
-    contact?.district,
-    contact?.city,
-    contact?.country,
-  ]
-    .filter(Boolean)
-    .join(", ");
+  const copyrightText =
+    settings?.copyrightText?.trim() ||
+    "Juhudi Foundation. All rights reserved.";
 
-  const copyright = `© ${new Date().getFullYear()} ${
-    settings?.copyrightText?.trim() || "Juhudi Foundation. All rights reserved."
-  }`;
+  const copyright = `© ${new Date().getFullYear()} ${copyrightText}`;
 
   return (
     <footer className="wrap-anywhere bg-black text-white">
       <Container>
-        <div className="grid grid-cols-1 *:min-w-0 gap-x-8 gap-y-10 py-12 sm:py-14 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1.25fr] lg:gap-x-10 lg:py-16">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-10 py-12 *:min-w-0 sm:py-14 md:grid-cols-2 lg:grid-cols-[1.55fr_0.85fr_1fr_1.3fr] lg:gap-x-12 lg:py-16 xl:gap-x-16">
           <div className="max-w-sm">
             <Link
               href="/"
@@ -72,7 +66,7 @@ export async function SiteFooter() {
             </Link>
 
             {description ? (
-              <p className="mt-5 max-w-xs text-sm leading-6 text-white/70">
+              <p className="mt-5 max-w-xs text-pretty text-sm leading-6 text-white/70">
                 {description}
               </p>
             ) : null}
@@ -103,55 +97,56 @@ export async function SiteFooter() {
           <div>
             <FooterHeading>Contact</FooterHeading>
 
-            <div className="mt-5 flex flex-col gap-3.5 text-sm leading-6 text-white/70">
-              {location ? (
-                <div className="flex items-start gap-2.5">
-                  <MapPinIcon
-                    aria-hidden="true"
-                    className="mt-1 size-4 shrink-0 text-white/50"
-                  />
-                  <p className="max-w-xs text-pretty">{location}</p>
-                </div>
-              ) : null}
-
+            <div className="mt-5 flex flex-col gap-3.5">
               {contact?.primaryEmail ? (
-                <div className="flex min-w-0 items-start gap-2.5">
-                  <MailIcon
-                    aria-hidden="true"
-                    className="mt-1 size-4 shrink-0 text-white/50"
-                  />
+                <ContactRow
+                  icon={
+                    <MailIcon
+                      aria-hidden="true"
+                      className="size-4 text-white/50"
+                    />
+                  }
+                >
                   <a
                     href={`mailto:${contact.primaryEmail}`}
                     className={`${contactLinkClassName} wrap-break-word`}
                   >
                     {contact.primaryEmail}
                   </a>
-                </div>
+                </ContactRow>
               ) : null}
 
               {contact?.primaryPhone ? (
-                <div className="flex min-w-0 items-start gap-2.5">
-                  <PhoneIcon
-                    aria-hidden="true"
-                    className="mt-1 size-4 shrink-0 text-white/50"
-                  />
+                <ContactRow
+                  icon={
+                    <PhoneIcon
+                      aria-hidden="true"
+                      className="size-4 text-white/50"
+                    />
+                  }
+                >
                   <a
                     href={`tel:${toTelephoneHref(contact.primaryPhone)}`}
                     className={contactLinkClassName}
                   >
                     {contact.primaryPhone}
                   </a>
-                </div>
+                </ContactRow>
               ) : null}
 
               {contact?.whatsappNumber ? (
-                <div className="flex min-w-0 items-start gap-2.5">
-                  <FaWhatsapp
-                    aria-hidden="true"
-                    className="mt-1 size-4 shrink-0 text-white/50"
-                  />
+                <ContactRow
+                  icon={
+                    <FaWhatsapp
+                      aria-hidden="true"
+                      className="size-4 text-white/50"
+                    />
+                  }
+                >
                   <a
-                    href={`https://wa.me/${toWhatsAppHref(contact.whatsappNumber)}`}
+                    href={`https://wa.me/${toWhatsAppHref(
+                      contact.whatsappNumber,
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={contactLinkClassName}
@@ -159,7 +154,7 @@ export async function SiteFooter() {
                   >
                     {contact.whatsappNumber}
                   </a>
-                </div>
+                </ContactRow>
               ) : null}
             </div>
 
@@ -181,9 +176,14 @@ export async function SiteFooter() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={footerLinkClassName}
+                      className={externalLinkClassName}
                     >
-                      {social.platform}
+                      {formatSocialPlatform(social.platform)}
+
+                      <ArrowUpRightIcon
+                        aria-hidden="true"
+                        className="size-3.5 shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      />
                     </a>
                   );
                 })}
@@ -202,9 +202,13 @@ export async function SiteFooter() {
                 href="https://avettics.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-sm font-medium text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                className="group inline-flex items-center gap-1 rounded-sm font-medium text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
               >
                 Avettics Limited
+                <ArrowUpRightIcon
+                  aria-hidden="true"
+                  className="size-3.5 shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
               </a>
             </p>
           </div>
@@ -232,7 +236,7 @@ function FooterSection({
 
 function FooterHeading({ children }: { children: ReactNode }) {
   return (
-    <h2 className="font-heading text-sm font-semibold text-white">
+    <h2 className="font-heading text-sm font-semibold tracking-wide text-white">
       {children}
     </h2>
   );
@@ -246,10 +250,42 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   );
 }
 
+function ContactRow({
+  icon,
+  children,
+}: {
+  icon: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex min-w-0 items-start gap-2.5">
+      <span aria-hidden="true" className="mt-1 flex shrink-0">
+        {icon}
+      </span>
+
+      <div className="min-w-0">{children}</div>
+    </div>
+  );
+}
+
 function toTelephoneHref(phone: string) {
   return phone.replace(/[^\d+]/g, "");
 }
 
 function toWhatsAppHref(phone: string) {
   return phone.replace(/\D/g, "");
+}
+
+function formatSocialPlatform(platform: string) {
+  const labels: Record<string, string> = {
+    facebook: "Facebook",
+    instagram: "Instagram",
+    linkedin: "LinkedIn",
+    x: "X",
+    youtube: "YouTube",
+    tiktok: "TikTok",
+    whatsapp: "WhatsApp",
+  };
+
+  return labels[platform.toLowerCase()] ?? platform;
 }

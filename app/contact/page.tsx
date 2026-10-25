@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/common/page-header";
 import { pageContentDefaults } from "@/sanity/content/defaults";
 import { getContactContent, getSiteSettings } from "@/sanity/lib/page-content";
 import { buildMetadata } from "@/sanity/lib/metadata";
+import { ContactDetails } from "@/components/contact/contact-details";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [content, settings] = await Promise.all([
@@ -23,10 +24,9 @@ export default async function ContactPage() {
   const { header } = await getContactContent();
 
   return (
-    <PageHeader
-      eyebrow="CONTACT"
-      title={header.title}
-      description={header.description}
-    />
+    <>
+      <PageHeader title={header.title} description={header.description} />
+      <ContactDetails />
+    </>
   );
 }

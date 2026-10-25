@@ -5,7 +5,13 @@ import { defineQuery } from "next-sanity";
  * featured sections, and other project listings.
  */
 export const PROJECTS_QUERY = defineQuery(`
-  *[_type == "project"] | order(startDate desc, title asc) {
+  *[
+    _type == "project" &&
+    defined(slug.current) &&
+    slug.current != "" &&
+    defined(title) &&
+    title != ""
+  ] | order(startDate desc, title asc) {
     _id,
     title,
     "slug": slug.current,

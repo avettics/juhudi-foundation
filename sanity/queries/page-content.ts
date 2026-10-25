@@ -7,7 +7,7 @@ export const HOME_CONTENT_QUERY = defineQuery(`
     impact { title },
     work { title, description },
     projects { title, description },
-    involvement { title, description, volunteerDescription, partnerDescription, supportDescription },
+    involvement { title, description, volunteerDescription, partnerDescription, contributionDescription },
     contribution { title, description },
     seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
   }
@@ -28,14 +28,28 @@ export const ABOUT_CONTENT_QUERY = defineQuery(`
 export const OUR_WORK_CONTENT_QUERY = defineQuery(`
   *[_type == "siteSettings" && _id == "siteSettings"][0].ourWorkPage {
     header { title, description },
+    approach { title, description, supportingText },
     seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
   }
 `);
 
 export const GET_INVOLVED_CONTENT_QUERY = defineQuery(`
   *[_type == "siteSettings" && _id == "siteSettings"][0].getInvolvedPage {
-    header { title, description },
-    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }
+    header { 
+      title, 
+      description 
+    },
+    ways {
+      title,
+      volunteerDescription,
+      partnerDescription
+    },
+    seo { 
+      metaTitle, 
+      metaDescription, 
+      noIndex, 
+      socialImage { asset, alt, crop, hotspot } 
+    }
   }
 `);
 

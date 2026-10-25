@@ -22,7 +22,7 @@ export async function GetInvolved() {
     },
     {
       title: "Make a contribution",
-      description: copy.supportDescription,
+      description: copy.contributionDescription,
       href: "/contribute",
       action: "Contribute",
     },
