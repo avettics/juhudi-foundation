@@ -6,7 +6,6 @@ import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
 
 type PageHeaderProps = {
-  eyebrow?: string;
   title: string;
   description?: string;
   actions?: ReactNode;
@@ -14,7 +13,6 @@ type PageHeaderProps = {
 };
 
 export function PageHeader({
-  eyebrow,
   title,
   description,
   actions,
@@ -27,7 +25,6 @@ export function PageHeader({
         className,
       )}
     >
-      {/* Juhudi brand watermark */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-y-0 right-0 -z-10 flex items-center overflow-hidden"
@@ -44,27 +41,16 @@ export function PageHeader({
       </div>
 
       <Container>
-        <div className="relative min-w-0 max-w-4xl py-10 sm:py-12 lg:py-14 xl:py-16">
+        <div className="relative mx-auto min-w-0 max-w-4xl py-10 text-center sm:py-12 lg:py-14 xl:py-16">
           <Reveal>
-            {eyebrow ? (
-              <p className="text-xs font-semibold tracking-[0.18em] text-primary sm:text-sm">
-                {eyebrow}
-              </p>
-            ) : null}
-
-            <h1
-              className={cn(
-                "max-w-3xl font-heading text-4xl font-semibold leading-[1.04] tracking-[-0.03em] text-balance sm:text-5xl lg:text-6xl",
-                eyebrow && "mt-4",
-              )}
-            >
+            <h1 className="mx-auto max-w-3xl text-balance font-heading text-4xl font-semibold leading-[1.04] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
               {title}
             </h1>
           </Reveal>
 
           {description ? (
             <Reveal delay={0.08}>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-pretty text-foreground/60 sm:text-lg sm:leading-8">
+              <p className="mx-auto mt-5 max-w-2xl text-pretty text-base leading-7 text-foreground/60 sm:text-lg sm:leading-8">
                 {description}
               </p>
             </Reveal>
@@ -72,7 +58,7 @@ export function PageHeader({
 
           {actions ? (
             <Reveal delay={0.14}>
-              <div className="mt-7 flex flex-wrap items-center gap-3">
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                 {actions}
               </div>
             </Reveal>

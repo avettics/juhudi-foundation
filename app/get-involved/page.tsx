@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import { PageHeader } from "@/components/common/page-header";
+import { WaysToGetInvolved } from "@/components/get-involved/ways-to-get-involved";
+import { ContributeBridge } from "@/components/get-involved/contribute-bridge";
 import { pageContentDefaults } from "@/sanity/content/defaults";
 import {
   getGetInvolvedContent,
@@ -26,10 +28,11 @@ export default async function GetInvolvedPage() {
   const { header } = await getGetInvolvedContent();
 
   return (
-    <PageHeader
-      eyebrow="GET INVOLVED"
-      title={header.title}
-      description={header.description}
-    />
+    <>
+      <PageHeader title={header.title} description={header.description} />
+
+      <WaysToGetInvolved />
+      <ContributeBridge />
+    </>
   );
 }

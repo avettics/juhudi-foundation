@@ -3861,6 +3861,36 @@
               },
               "optional": true
             },
+            "approach": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "title": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    },
+                    "optional": false
+                  },
+                  "description": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    },
+                    "optional": false
+                  },
+                  "supportingText": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    },
+                    "optional": false
+                  }
+                }
+              },
+              "optional": true
+            },
             "seo": {
               "type": "objectAttribute",
               "value": {
@@ -3891,6 +3921,36 @@
                     "optional": false
                   },
                   "description": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    },
+                    "optional": false
+                  }
+                }
+              },
+              "optional": true
+            },
+            "ways": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "title": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    },
+                    "optional": false
+                  },
+                  "volunteerDescription": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    },
+                    "optional": false
+                  },
+                  "partnerDescription": {
                     "type": "objectAttribute",
                     "value": {
                       "type": "string"

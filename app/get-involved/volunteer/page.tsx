@@ -25,11 +25,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function VolunteerPage() {
   const { header } = await getVolunteerContent();
 
-  return (
-    <PageHeader
-      eyebrow="VOLUNTEER"
-      title={header.title}
-      description={header.description}
-    />
-  );
+  return <PageHeader title={header.title} description={header.description} />;
 }

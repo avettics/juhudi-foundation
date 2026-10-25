@@ -27,11 +27,7 @@ export default async function AboutPage() {
   const { header } = await getAboutContent();
   return (
     <>
-      <PageHeader
-        eyebrow="ABOUT JUHUDI"
-        title={header.title}
-        description={header.description}
-      />
+      <PageHeader title={header.title} description={header.description} />
 
       <AboutIntro />
       <MissionVision />

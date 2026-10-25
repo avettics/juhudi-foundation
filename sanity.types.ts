@@ -644,12 +644,22 @@ export type SiteSettings = {
       title: string;
       description: string;
     };
+    approach?: {
+      title: string;
+      description: string;
+      supportingText: string;
+    };
     seo?: Seo;
   };
   getInvolvedPage?: {
     header?: {
       title: string;
       description: string;
+    };
+    ways?: {
+      title: string;
+      volunteerDescription: string;
+      partnerDescription: string;
     };
     seo?: Seo;
   };
@@ -1423,7 +1433,7 @@ export type OPPORTUNITY_BY_SLUG_QUERY_RESULT = {
 
 // Source: sanity/queries/page-content.ts
 // Variable: HOME_CONTENT_QUERY
-// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].homePage {    hero { title, description, imageAlt, image { asset, alt, crop, hotspot } },    introduction { title, description },    impact { title },    work { title, description },    projects { title, description },    involvement { title, description, volunteerDescription, partnerDescription, supportDescription },    contribution { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].homePage {    hero { title, description, imageAlt, image { asset, alt, crop, hotspot } },    introduction { title, description },    impact { title },    work { title, description },    projects { title, description },    involvement { title, description, volunteerDescription, partnerDescription, contributionDescription },    contribution { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
 export type HOME_CONTENT_QUERY_RESULT = {
   hero: {
     title: string;
@@ -1456,7 +1466,7 @@ export type HOME_CONTENT_QUERY_RESULT = {
     description: string;
     volunteerDescription: string;
     partnerDescription: string;
-    supportDescription: null;
+    contributionDescription: string;
   } | null;
   contribution: {
     title: string;
@@ -1540,11 +1550,16 @@ export type ABOUT_CONTENT_QUERY_RESULT = {
 
 // Source: sanity/queries/page-content.ts
 // Variable: OUR_WORK_CONTENT_QUERY
-// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].ourWorkPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].ourWorkPage {    header { title, description },    approach { title, description, supportingText },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
 export type OUR_WORK_CONTENT_QUERY_RESULT = {
   header: {
     title: string;
     description: string;
+  } | null;
+  approach: {
+    title: string;
+    description: string;
+    supportingText: string;
   } | null;
   seo: {
     metaTitle: string | null;
@@ -1561,11 +1576,16 @@ export type OUR_WORK_CONTENT_QUERY_RESULT = {
 
 // Source: sanity/queries/page-content.ts
 // Variable: GET_INVOLVED_CONTENT_QUERY
-// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].getInvolvedPage {    header { title, description },    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }  }
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0].getInvolvedPage {    header {       title,       description     },    ways {      title,      volunteerDescription,      partnerDescription    },    seo {       metaTitle,       metaDescription,       noIndex,       socialImage { asset, alt, crop, hotspot }     }  }
 export type GET_INVOLVED_CONTENT_QUERY_RESULT = {
   header: {
     title: string;
     description: string;
+  } | null;
+  ways: {
+    title: string;
+    volunteerDescription: string;
+    partnerDescription: string;
   } | null;
   seo: {
     metaTitle: string | null;
@@ -1866,7 +1886,7 @@ export type PROGRAMME_CARDS_QUERY_RESULT = Array<{
 
 // Source: sanity/queries/projects.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project"] | order(startDate desc, title asc) {    _id,    title,    "slug": slug.current,    shortDescription,    status,    startDate,    endDate,    location,    programme-> {      _id,      title,      "slug": slug.current    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured  }
+// Query: *[    _type == "project" &&    defined(slug.current) &&    slug.current != "" &&    defined(title) &&    title != ""  ] | order(startDate desc, title asc) {    _id,    title,    "slug": slug.current,    shortDescription,    status,    startDate,    endDate,    location,    programme-> {      _id,      title,      "slug": slug.current    },    featuredImage {      asset,      alt,      hotspot,      crop    },    featured  }
 export type PROJECTS_QUERY_RESULT = Array<{
   _id: string;
   title: string;
@@ -2383,10 +2403,10 @@ declare module "@sanity/client" {
     '\n  *[_type == "impactMetric" && featured == true && title != "" && defined(title) && defined(value)]\n    | order(order asc, title asc)[0...4] {\n      _id, title, value, prefix, suffix\n    }\n': FEATURED_IMPACT_METRICS_QUERY_RESULT;
     '\n  *[_type == "opportunity"] | order(deadline asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    opportunityType,\n    shortDescription,\n    mode,\n    location,\n    deadline,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': OPPORTUNITIES_QUERY_RESULT;
     '\n  *[_type == "opportunity" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    opportunityType,\n    shortDescription,\n\n    content[] {\n      ...,\n\n      markDefs[] {\n        ...,\n\n        _type == "internalLink" => {\n          ...,\n          reference-> {\n            _type,\n            "slug": slug.current\n          }\n        }\n      },\n\n      _type == "image" => {\n        asset,\n        alt,\n        caption,\n        hotspot,\n        crop\n      }\n    },\n\n    mode,\n    location,\n    deadline,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription,\n      status\n    },\n\n    applicationLink {\n      label,\n      linkType,\n      internalLink-> {\n        _type,\n        "slug": slug.current\n      },\n      url,\n      openInNewTab\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        crop,\n        hotspot,\n        alt\n      },\n      noIndex\n    }\n  }\n': OPPORTUNITY_BY_SLUG_QUERY_RESULT;
-    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].homePage {\n    hero { title, description, imageAlt, image { asset, alt, crop, hotspot } },\n    introduction { title, description },\n    impact { title },\n    work { title, description },\n    projects { title, description },\n    involvement { title, description, volunteerDescription, partnerDescription, supportDescription },\n    contribution { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': HOME_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].homePage {\n    hero { title, description, imageAlt, image { asset, alt, crop, hotspot } },\n    introduction { title, description },\n    impact { title },\n    work { title, description },\n    projects { title, description },\n    involvement { title, description, volunteerDescription, partnerDescription, contributionDescription },\n    contribution { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': HOME_CONTENT_QUERY_RESULT;
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].aboutPage {\n    introduction { title, summary, description, imageAlt, image { asset, alt, crop, hotspot } },\n    purpose { title, description, missionTitle, missionDescription, visionTitle, visionDescription },\n    story { title, description, introduction, paragraph1, paragraph2, paragraph3, closing },\n    principles { title, description, items[] { _key, title, description } },\n    team { title, description },\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': ABOUT_CONTENT_QUERY_RESULT;
-    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].ourWorkPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': OUR_WORK_CONTENT_QUERY_RESULT;
-    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].getInvolvedPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': GET_INVOLVED_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].ourWorkPage {\n    header { title, description },\n    approach { title, description, supportingText },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': OUR_WORK_CONTENT_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].getInvolvedPage {\n    header { \n      title, \n      description \n    },\n    ways {\n      title,\n      volunteerDescription,\n      partnerDescription\n    },\n    seo { \n      metaTitle, \n      metaDescription, \n      noIndex, \n      socialImage { asset, alt, crop, hotspot } \n    }\n  }\n': GET_INVOLVED_CONTENT_QUERY_RESULT;
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].volunteerPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': VOLUNTEER_CONTENT_QUERY_RESULT;
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].partnerPage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': PARTNER_CONTENT_QUERY_RESULT;
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0].contributePage {\n    header { title, description },\n    seo { metaTitle, metaDescription, noIndex, socialImage { asset, alt, crop, hotspot } }\n  }\n': CONTRIBUTE_CONTENT_QUERY_RESULT;
@@ -2397,7 +2417,7 @@ declare module "@sanity/client" {
     '\n  *[_type == "programme"] | order(order asc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    focusAreas,\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n    featured,\n    order\n  }\n': PROGRAMMES_QUERY_RESULT;
     '\n  *[_type == "programme" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n\n    content[] {\n      ...,\n\n      markDefs[] {\n        ...,\n\n        _type == "internalLink" => {\n          ...,\n          reference-> {\n            _type,\n            "slug": slug.current\n          }\n        }\n      },\n\n      _type == "image" => {\n        asset,\n        alt,\n        caption,\n        hotspot,\n        crop\n      }\n    },\n\n    focusAreas,\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        crop,\n        hotspot,\n        alt\n      },\n      noIndex\n    }\n  }\n': PROGRAMME_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "programme" && defined(slug.current) && slug.current != "" && defined(title) && title != ""]\n    | order(order asc, title asc) {\n      _id, title, "slug": slug.current, shortDescription\n    }\n': PROGRAMME_CARDS_QUERY_RESULT;
-    '\n  *[_type == "project"] | order(startDate desc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    status,\n    startDate,\n    endDate,\n    location,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': PROJECTS_QUERY_RESULT;
+    '\n  *[\n    _type == "project" &&\n    defined(slug.current) &&\n    slug.current != "" &&\n    defined(title) &&\n    title != ""\n  ] | order(startDate desc, title asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    status,\n    startDate,\n    endDate,\n    location,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured\n  }\n': PROJECTS_QUERY_RESULT;
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n\n    content[] {\n      ...,\n\n      markDefs[] {\n        ...,\n\n        _type == "internalLink" => {\n          ...,\n          reference-> {\n            _type,\n            "slug": slug.current\n          }\n        }\n      },\n\n      _type == "image" => {\n        asset,\n        alt,\n        caption,\n        hotspot,\n        crop\n      }\n    },\n\n    status,\n    startDate,\n    endDate,\n    location,\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current,\n      shortDescription\n    },\n\n    featuredImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n\n    seo {\n      metaTitle,\n      metaDescription,\n      socialImage {\n        asset,\n        crop,\n        hotspot,\n        alt\n      },\n      noIndex\n    }\n  }\n': PROJECT_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "project" && featured == true &&\n    defined(slug.current) && slug.current != "" &&\n    defined(title) && title != "" && defined(featuredImage.asset._ref)]\n    | order(startDate desc, title asc)[0...3] {\n    _id,\n    title,\n    "slug": slug.current,\n    shortDescription,\n    location,\n    programme-> { title },\n    featuredImage { asset, alt, hotspot, crop }\n  }\n': FEATURED_PROJECTS_QUERY_RESULT;
     '\n  *[_type == "report"] | order(publicationDate desc, title asc) {\n    _id,\n    title,\n    reportType,\n    description,\n    publicationDate,\n    reportingPeriod,\n\n    file {\n      asset-> {\n        _id,\n        url,\n        originalFilename,\n        mimeType,\n        size\n      }\n    },\n\n    programme-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n\n    project-> {\n      _id,\n      title,\n      "slug": slug.current,\n      status\n    },\n\n    coverImage {\n      asset,\n      alt,\n      hotspot,\n      crop\n    },\n\n    featured,\n    order\n  }\n': REPORTS_QUERY_RESULT;

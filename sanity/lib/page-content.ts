@@ -66,8 +66,8 @@ export const getHomeContent = cache(async () => {
       partnerDescription:
         data?.involvement?.partnerDescription ??
         pageContentDefaults.home.involvement.partnerDescription,
-      supportDescription:
-        data?.involvement?.supportDescription ??
+      contributionDescription:
+        data?.involvement?.contributionDescription ??
         pageContentDefaults.home.involvement.contributionDescription,
     },
     contribution: {
@@ -159,6 +159,7 @@ export const getAboutContent = cache(async () => {
 
 export const getOurWorkContent = cache(async () => {
   const { data } = await sanityFetch({ query: OUR_WORK_CONTENT_QUERY });
+
   return {
     header: {
       title: data?.header?.title ?? pageContentDefaults.ourWork.header.title,
@@ -166,6 +167,17 @@ export const getOurWorkContent = cache(async () => {
         data?.header?.description ??
         pageContentDefaults.ourWork.header.description,
     },
+    approach: {
+      title:
+        data?.approach?.title ?? pageContentDefaults.ourWork.approach.title,
+      description:
+        data?.approach?.description ??
+        pageContentDefaults.ourWork.approach.description,
+      supportingText:
+        data?.approach?.supportingText ??
+        pageContentDefaults.ourWork.approach.supportingText,
+    },
+
     seo: data?.seo,
   };
 });
@@ -183,6 +195,17 @@ export const getGetInvolvedContent = cache(async () => {
         data?.header?.description ??
         pageContentDefaults.getInvolved.header.description,
     },
+
+    ways: {
+      title: data?.ways?.title ?? pageContentDefaults.getInvolved.ways.title,
+      volunteerDescription:
+        data?.ways?.volunteerDescription ??
+        pageContentDefaults.getInvolved.ways.volunteerDescription,
+      partnerDescription:
+        data?.ways?.partnerDescription ??
+        pageContentDefaults.getInvolved.ways.partnerDescription,
+    },
+
     seo: data?.seo,
   };
 });

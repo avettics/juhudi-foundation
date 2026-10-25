@@ -4,6 +4,9 @@ import { pageContentDefaults } from "@/sanity/content/defaults";
 import type { Metadata } from "next";
 
 import { PageHeader } from "@/components/common/page-header";
+import { OurApproach } from "@/components/our-work/our-approach";
+import { ProgrammeAreas } from "@/components/our-work/programme-areas";
+import { OurWorkCTA } from "@/components/our-work/our-work-cta";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [content, settings] = await Promise.all([
@@ -21,10 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function OurWorkPage() {
   const { header } = await getOurWorkContent();
   return (
-    <PageHeader
-      eyebrow="OUR WORK"
-      title={header.title}
-      description={header.description}
-    />
+    <>
+      <PageHeader title={header.title} description={header.description} />
+      <OurApproach />;
+      <ProgrammeAreas />
+      <OurWorkCTA />
+    </>
   );
 }

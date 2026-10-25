@@ -463,7 +463,40 @@ export const pageContentFields = [
           }),
         ],
       }),
-      defineField({ name: "seo", title: "SEO", type: "seo" }),
+
+      defineField({
+        name: "approach",
+        title: "Our Approach",
+        type: "object",
+        fields: [
+          defineField({
+            name: "title",
+            title: "Title",
+            type: "string",
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "description",
+            title: "Description",
+            type: "text",
+            rows: 3,
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "supportingText",
+            title: "Supporting Text",
+            type: "text",
+            rows: 4,
+            validation: (rule) => rule.required(),
+          }),
+        ],
+      }),
+
+      defineField({
+        name: "seo",
+        title: "SEO",
+        type: "seo",
+      }),
     ],
   }),
 
@@ -494,6 +527,35 @@ export const pageContentFields = [
           }),
         ],
       }),
+
+      defineField({
+        name: "ways",
+        title: "Ways to Get Involved",
+        type: "object",
+        fields: [
+          defineField({
+            name: "title",
+            title: "Title",
+            type: "string",
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "volunteerDescription",
+            title: "Volunteer Description",
+            type: "text",
+            rows: 3,
+            validation: (rule) => rule.required(),
+          }),
+          defineField({
+            name: "partnerDescription",
+            title: "Partner Description",
+            type: "text",
+            rows: 3,
+            validation: (rule) => rule.required(),
+          }),
+        ],
+      }),
+
       defineField({
         name: "seo",
         title: "SEO",
